@@ -1,0 +1,1 @@
+{"version":3,"file":"IsolatedTransaction.decorator.d.ts","sourceRoot":"","sources":["../../../src/cqrs/decorators/IsolatedTransaction.decorator.ts"],"names":[],"mappings":"AAAA,OAAO,kBAAkB,CAAC;AAI1B;;;;;;;;;;GAUG;AACH,wBAAgB,mBAAmB,IAAI,cAAc,CAIpD;AAED,wBAAgB,qBAAqB,CAAC,MAAM,EAAE,MAAM,GAAG,OAAO,CAE7D"}

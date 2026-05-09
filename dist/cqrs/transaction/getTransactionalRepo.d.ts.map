@@ -1,0 +1,1 @@
+{"version":3,"file":"getTransactionalRepo.d.ts","sourceRoot":"","sources":["../../../src/cqrs/transaction/getTransactionalRepo.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,UAAU,EAAE,aAAa,EAAgB,MAAM,SAAS,CAAC;AAGvE;;;;;;;;;;;;;GAaG;AACH,wBAAgB,oBAAoB,CAAC,CAAC,SAAS,aAAa,EAC1D,IAAI,EAAE,UAAU,CAAC,CAAC,CAAC,GAClB,UAAU,CAAC,CAAC,CAAC,CAGf"}
