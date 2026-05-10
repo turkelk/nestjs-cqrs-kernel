@@ -54,8 +54,6 @@ export { RedisStreamConsumer } from './events/RedisStreamConsumer';
 export { OutboxPublisherService } from './events/OutboxPublisherService';
 export { UnleashModule } from './unleash/unleash.module';
 export type { UnleashModuleOptions } from './unleash/unleash.module';
-export { FEATURE_FLAGS } from './unleash/initial-flags';
-export type { FeatureFlagName } from './unleash/initial-flags';
 export { GracefulShutdownService } from './lifecycle/GracefulShutdownService';
 export { SharedKernelModule } from './shared-kernel.module';
 export type { SharedKernelModuleOptions } from './shared-kernel.module';

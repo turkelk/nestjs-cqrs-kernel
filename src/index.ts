@@ -93,8 +93,6 @@ export { OutboxPublisherService } from './events/OutboxPublisherService';
 // Unleash
 export { UnleashModule } from './unleash/unleash.module';
 export type { UnleashModuleOptions } from './unleash/unleash.module';
-export { FEATURE_FLAGS } from './unleash/initial-flags';
-export type { FeatureFlagName } from './unleash/initial-flags';
 
 // Lifecycle
 export { GracefulShutdownService } from './lifecycle/GracefulShutdownService';
