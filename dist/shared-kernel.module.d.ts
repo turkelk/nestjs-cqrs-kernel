@@ -3,7 +3,7 @@ import { type RedisModuleOptions } from './redis/redis.module';
 import { type UnleashModuleOptions } from './unleash/unleash.module';
 export interface SharedKernelModuleOptions {
     redis?: RedisModuleOptions;
-    unleash?: UnleashModuleOptions;
+    unleash?: UnleashModuleOptions | false;
 }
 /**
  * SharedKernelModule bundles all cross-cutting CQRS pipeline behaviors,

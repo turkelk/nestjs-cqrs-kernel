@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var FeatureFlagBehavior_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FeatureFlagBehavior = void 0;
@@ -24,6 +27,10 @@ let FeatureFlagBehavior = FeatureFlagBehavior_1 = class FeatureFlagBehavior {
     async execute(command, next) {
         const metadata = (0, FeatureFlag_decorator_1.getFeatureFlagMetadata)(command.constructor);
         if (!metadata) {
+            return next();
+        }
+        if (!this.unleash) {
+            this.logger.debug('Unleash not configured, skipping feature flag check');
             return next();
         }
         const { flagName, fallback, defaultValue } = metadata;
@@ -46,6 +53,7 @@ let FeatureFlagBehavior = FeatureFlagBehavior_1 = class FeatureFlagBehavior {
 exports.FeatureFlagBehavior = FeatureFlagBehavior;
 exports.FeatureFlagBehavior = FeatureFlagBehavior = FeatureFlagBehavior_1 = __decorate([
     (0, common_1.Injectable)(),
+    __param(0, (0, common_1.Optional)()),
     __metadata("design:paramtypes", [unleash_client_1.Unleash])
 ], FeatureFlagBehavior);
 //# sourceMappingURL=FeatureFlagBehavior.js.map

@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Optional, Logger } from '@nestjs/common';
 import { Unleash } from 'unleash-client';
 import { getFeatureFlagMetadata } from '../decorators/FeatureFlag.decorator';
 import { Result, ErrorType } from '../../result/Result';
@@ -7,12 +7,17 @@ import { Result, ErrorType } from '../../result/Result';
 export class FeatureFlagBehavior {
   private readonly logger = new Logger(FeatureFlagBehavior.name);
 
-  constructor(private readonly unleash: Unleash) {}
+  constructor(@Optional() private readonly unleash?: Unleash) {}
 
   async execute<T>(command: object, next: () => Promise<Result<T>>): Promise<Result<T>> {
     const metadata = getFeatureFlagMetadata(command.constructor);
 
     if (!metadata) {
+      return next();
+    }
+
+    if (!this.unleash) {
+      this.logger.debug('Unleash not configured, skipping feature flag check');
       return next();
     }
 

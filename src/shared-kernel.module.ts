@@ -17,7 +17,7 @@ import { UnleashModule, type UnleashModuleOptions } from './unleash/unleash.modu
 
 export interface SharedKernelModuleOptions {
   redis?: RedisModuleOptions;
-  unleash?: UnleashModuleOptions;
+  unleash?: UnleashModuleOptions | false;
 }
 
 /**
@@ -35,13 +35,18 @@ export interface SharedKernelModuleOptions {
 @Module({})
 export class SharedKernelModule {
   static forRoot(options: SharedKernelModuleOptions = {}): DynamicModule {
+    const imports = [
+      CqrsModule.forRoot(),
+      RedisModule.forRoot(options.redis),
+    ];
+
+    if (options.unleash !== false) {
+      imports.push(UnleashModule.forRoot(options.unleash));
+    }
+
     return {
       module: SharedKernelModule,
-      imports: [
-        CqrsModule.forRoot(),
-        RedisModule.forRoot(options.redis),
-        UnleashModule.forRoot(options.unleash),
-      ],
+      imports,
       controllers: [MetricsController],
       providers: [
         LogBehavior,

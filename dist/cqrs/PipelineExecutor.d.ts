@@ -33,7 +33,7 @@ export declare class PipelineExecutor implements OnModuleInit {
     private readonly logger;
     private commandBehaviors;
     private queryBehaviors;
-    constructor(commandBus: CommandBus, queryBus: QueryBus, logBehavior: LogBehavior, featureFlagBehavior: FeatureFlagBehavior, validationBehavior: ValidationBehavior, cacheBehavior: CacheBehavior, distributedLockBehavior: DistributedLockBehavior, transactionalBehavior: TransactionalBehavior, performanceBehavior: PerformanceBehavior);
+    constructor(commandBus: CommandBus, queryBus: QueryBus, logBehavior: LogBehavior, featureFlagBehavior: FeatureFlagBehavior | undefined, validationBehavior: ValidationBehavior, cacheBehavior: CacheBehavior, distributedLockBehavior: DistributedLockBehavior, transactionalBehavior: TransactionalBehavior, performanceBehavior: PerformanceBehavior);
     onModuleInit(): void;
     executeCommand<T>(command: object): Promise<Result<T>>;
     executeQuery<T>(query: object): Promise<Result<T>>;

@@ -37,13 +37,16 @@ const unleash_module_1 = require("./unleash/unleash.module");
  */
 let SharedKernelModule = SharedKernelModule_1 = class SharedKernelModule {
     static forRoot(options = {}) {
+        const imports = [
+            cqrs_1.CqrsModule.forRoot(),
+            redis_module_1.RedisModule.forRoot(options.redis),
+        ];
+        if (options.unleash !== false) {
+            imports.push(unleash_module_1.UnleashModule.forRoot(options.unleash));
+        }
         return {
             module: SharedKernelModule_1,
-            imports: [
-                cqrs_1.CqrsModule.forRoot(),
-                redis_module_1.RedisModule.forRoot(options.redis),
-                unleash_module_1.UnleashModule.forRoot(options.unleash),
-            ],
+            imports,
             controllers: [MetricsController_1.MetricsController],
             providers: [
                 LogBehavior_1.LogBehavior,

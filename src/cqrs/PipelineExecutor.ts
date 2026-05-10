@@ -1,4 +1,4 @@
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Injectable, Optional, Logger, OnModuleInit } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Result } from '../result/Result';
 import { LogBehavior } from './behaviors/LogBehavior';
@@ -33,7 +33,7 @@ export class PipelineExecutor implements OnModuleInit {
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
     private readonly logBehavior: LogBehavior,
-    private readonly featureFlagBehavior: FeatureFlagBehavior,
+    @Optional() private readonly featureFlagBehavior: FeatureFlagBehavior | undefined,
     private readonly validationBehavior: ValidationBehavior,
     private readonly cacheBehavior: CacheBehavior,
     private readonly distributedLockBehavior: DistributedLockBehavior,
@@ -42,10 +42,14 @@ export class PipelineExecutor implements OnModuleInit {
   ) {}
 
   onModuleInit() {
+    const featureFlagStep: BehaviorFn[] = this.featureFlagBehavior
+      ? [(cmd, next) => this.featureFlagBehavior!.execute(cmd, next)]
+      : [];
+
     this.commandBehaviors = [
       (cmd, next) => this.performanceBehavior.execute(cmd, next),
       (cmd, next) => this.logBehavior.execute(cmd, next),
-      (cmd, next) => this.featureFlagBehavior.execute(cmd, next),
+      ...featureFlagStep,
       (cmd, next) => this.validationBehavior.execute(cmd, next),
       (cmd, next) => this.cacheBehavior.execute(cmd, next),
       (cmd, next) => this.distributedLockBehavior.execute(cmd, next),
@@ -55,7 +59,7 @@ export class PipelineExecutor implements OnModuleInit {
     this.queryBehaviors = [
       (cmd, next) => this.performanceBehavior.execute(cmd, next),
       (cmd, next) => this.logBehavior.execute(cmd, next),
-      (cmd, next) => this.featureFlagBehavior.execute(cmd, next),
+      ...featureFlagStep,
       (cmd, next) => this.validationBehavior.execute(cmd, next),
       (cmd, next) => this.cacheBehavior.execute(cmd, next),
     ];
