@@ -20,10 +20,10 @@ type BehaviorFn = <T>(
  * PipelineExecutor wraps CommandBus and QueryBus with separate behavior chains.
  *
  * Command chain (all writes):
- *   Performance → Log → FeatureFlag → Validate → Workflow → Cache → DistributedLock → Transactional → Handler
+ *   Log → Performance → FeatureFlag → Validate → Workflow → Cache → DistributedLock → Transactional → Handler
  *
  * Query chain (reads only):
- *   Performance → Log → FeatureFlag → Validate → Cache → Handler
+ *   Log → Performance → FeatureFlag → Validate → Cache → Handler
  *
  * Every command is transactional by default (UnitOfWork pattern).
  * Queries skip Transactional and DistributedLock — they are read-only.
@@ -57,8 +57,8 @@ export class PipelineExecutor implements OnModuleInit {
       : [];
 
     this.commandBehaviors = [
-      (cmd, next) => this.performanceBehavior.execute(cmd, next),
       (cmd, next) => this.logBehavior.execute(cmd, next),
+      (cmd, next) => this.performanceBehavior.execute(cmd, next),
       ...featureFlagStep,
       (cmd, next) => this.validationBehavior.execute(cmd, next),
       ...workflowStep,
@@ -68,8 +68,8 @@ export class PipelineExecutor implements OnModuleInit {
     ];
 
     this.queryBehaviors = [
-      (cmd, next) => this.performanceBehavior.execute(cmd, next),
       (cmd, next) => this.logBehavior.execute(cmd, next),
+      (cmd, next) => this.performanceBehavior.execute(cmd, next),
       ...featureFlagStep,
       (cmd, next) => this.validationBehavior.execute(cmd, next),
       (cmd, next) => this.cacheBehavior.execute(cmd, next),
