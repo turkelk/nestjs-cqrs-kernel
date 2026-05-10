@@ -65,11 +65,11 @@ export class JwtAuthGuard implements CanActivate {
     try {
       const decoded = await this.verifyToken(token);
 
-      // Extract org from KC Organizations claim (preferred) or legacy org_id attribute
-      // KC Organizations format: { "organization": { "<org-uuid>": { ... } } }
-      // The org UUID is the key, not a nested property
+      // Extract org ID: prefer explicit org_id claim, fall back to KC Organizations object
+      // KC Organizations can return either an array of aliases (KC 26 default) or
+      // an object keyed by org UUID. Only use the object format as a fallback.
       let organizationId = decoded.org_id;
-      if (decoded.organization) {
+      if (!organizationId && decoded.organization && !Array.isArray(decoded.organization)) {
         const firstOrgId = Object.keys(decoded.organization)[0];
         if (firstOrgId) organizationId = firstOrgId;
       }
