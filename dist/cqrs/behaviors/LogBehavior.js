@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LogBehavior = void 0;
 const common_1 = require("@nestjs/common");
+const Result_1 = require("../../result/Result");
 const CorrelationStore_1 = require("../../middleware/CorrelationStore");
 const PII_FIELDS = new Set(['email', 'githubAccessToken', 'accessToken', 'token', 'secretKey', 'password']);
 const MAX_STRING_LENGTH = 200;
@@ -52,14 +53,16 @@ let LogBehavior = class LogBehavior {
         }
         catch (error) {
             const durationMs = Date.now() - startTime;
+            const err = error instanceof Error ? error : new Error(String(error));
             this.logger.error({
                 msg: `${commandName} completed`,
                 ...logContext,
                 durationMs,
                 result: 'exception',
-                error: error.message,
+                error: err.message,
+                stack: err.stack,
             });
-            throw error;
+            return Result_1.Result.failure(Result_1.ErrorType.InternalError, err.message);
         }
     }
     maskPayload(command) {

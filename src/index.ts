@@ -16,6 +16,9 @@ export type { TenantStoreData } from './middleware/TenantStore';
 // Filters
 export { GlobalExceptionFilter } from './filters/GlobalExceptionFilter';
 
+// Interceptors
+export { ResultInterceptor } from './interceptors/ResultInterceptor';
+
 // Guards
 export { JwtAuthGuard, Public, JwtPayload } from './guards/JwtAuthGuard';
 export { RolesGuard, Roles } from './guards/RolesGuard';

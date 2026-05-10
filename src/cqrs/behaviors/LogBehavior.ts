@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Result } from '../../result/Result';
+import { Result, ErrorType } from '../../result/Result';
 import { correlationStore } from '../../middleware/CorrelationStore';
 
 const PII_FIELDS = new Set(['email', 'githubAccessToken', 'accessToken', 'token', 'secretKey', 'password']);
@@ -50,14 +50,16 @@ export class LogBehavior {
       return result;
     } catch (error) {
       const durationMs = Date.now() - startTime;
+      const err = error instanceof Error ? error : new Error(String(error));
       this.logger.error({
         msg: `${commandName} completed`,
         ...logContext,
         durationMs,
         result: 'exception',
-        error: (error as Error).message,
+        error: err.message,
+        stack: err.stack,
       });
-      throw error;
+      return Result.failure(ErrorType.InternalError, err.message);
     }
   }
 

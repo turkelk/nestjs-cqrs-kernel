@@ -8,6 +8,7 @@ export { TenantContextMiddleware, TenantContext } from './middleware/TenantConte
 export { tenantStore } from './middleware/TenantStore';
 export type { TenantStoreData } from './middleware/TenantStore';
 export { GlobalExceptionFilter } from './filters/GlobalExceptionFilter';
+export { ResultInterceptor } from './interceptors/ResultInterceptor';
 export { JwtAuthGuard, Public, JwtPayload } from './guards/JwtAuthGuard';
 export { RolesGuard, Roles } from './guards/RolesGuard';
 export { TenantSubscriber } from './subscribers/TenantSubscriber';
