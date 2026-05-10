@@ -18,7 +18,17 @@ const ERROR_TYPE_TO_STATUS = {
     [Result_1.ErrorType.Unauthorized]: 401,
     [Result_1.ErrorType.Conflict]: 409,
     [Result_1.ErrorType.ValidationError]: 400,
+    [Result_1.ErrorType.UnprocessableEntity]: 422,
     [Result_1.ErrorType.InternalError]: 500,
+};
+const ERROR_TYPE_TO_TITLE = {
+    [Result_1.ErrorType.NotFound]: 'Not Found',
+    [Result_1.ErrorType.Forbidden]: 'Forbidden',
+    [Result_1.ErrorType.Unauthorized]: 'Unauthorized',
+    [Result_1.ErrorType.Conflict]: 'Conflict',
+    [Result_1.ErrorType.ValidationError]: 'Validation Error',
+    [Result_1.ErrorType.UnprocessableEntity]: 'Unprocessable Entity',
+    [Result_1.ErrorType.InternalError]: 'Internal Server Error',
 };
 let ResultInterceptor = ResultInterceptor_1 = class ResultInterceptor {
     logger = new common_1.Logger(ResultInterceptor_1.name);
@@ -45,9 +55,11 @@ let ResultInterceptor = ResultInterceptor_1 = class ResultInterceptor {
         }));
     }
     sendResultError(context, result) {
+        const request = context.switchToHttp().getRequest();
         const response = context.switchToHttp().getResponse();
         const correlationId = CorrelationStore_1.correlationStore.getStore()?.correlationId;
         const status = ERROR_TYPE_TO_STATUS[result.errorType] ?? 500;
+        const title = ERROR_TYPE_TO_TITLE[result.errorType] ?? 'Unknown Error';
         if (correlationId) {
             response.setHeader('X-Correlation-ID', correlationId);
         }
@@ -57,11 +69,15 @@ let ResultInterceptor = ResultInterceptor_1 = class ResultInterceptor {
             status,
             detail: result.errorMessage,
         });
-        response.status(status).json({
+        response
+            .status(status)
+            .setHeader('Content-Type', 'application/problem+json')
+            .json({
             type: `https://arex.dev/errors/${result.errorType}`,
-            title: result.errorType,
+            title,
             status,
             detail: result.errorMessage,
+            instance: request.originalUrl,
             correlationId,
         });
     }

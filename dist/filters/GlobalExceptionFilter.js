@@ -20,21 +20,30 @@ let GlobalExceptionFilter = GlobalExceptionFilter_1 = class GlobalExceptionFilte
     isProduction = process.env.NODE_ENV === 'production';
     catch(exception, host) {
         const ctx = host.switchToHttp();
+        const request = ctx.getRequest();
         const response = ctx.getResponse();
         const correlationId = CorrelationStore_1.correlationStore.getStore()?.correlationId;
+        if (response.headersSent)
+            return;
         if (correlationId) {
             response.setHeader('X-Correlation-ID', correlationId);
         }
-        const problem = this.toProblemDetails(exception, correlationId);
+        const problem = this.toProblemDetails(exception, correlationId, request.originalUrl);
+        if (problem.retryAfter) {
+            response.setHeader('Retry-After', String(problem.retryAfter));
+        }
         this.logger.error({
             msg: `${problem.status} ${problem.title}`,
             correlationId,
             status: problem.status,
             detail: problem.detail,
         });
-        response.status(problem.status).json(problem);
+        response
+            .status(problem.status)
+            .setHeader('Content-Type', 'application/problem+json')
+            .json(problem);
     }
-    toProblemDetails(exception, correlationId) {
+    toProblemDetails(exception, correlationId, instance) {
         // ThrottlerException → 429
         if (exception instanceof throttler_1.ThrottlerException) {
             return {
@@ -42,6 +51,7 @@ let GlobalExceptionFilter = GlobalExceptionFilter_1 = class GlobalExceptionFilte
                 title: 'Too Many Requests',
                 status: 429,
                 detail: 'Rate limit exceeded. Please retry later.',
+                instance,
                 correlationId,
                 retryAfter: 60,
             };
@@ -59,6 +69,7 @@ let GlobalExceptionFilter = GlobalExceptionFilter_1 = class GlobalExceptionFilte
                     title: 'Validation Error',
                     status: 400,
                     detail: 'One or more validation errors occurred.',
+                    instance,
                     correlationId,
                     errors: detail.map((msg) => ({ message: msg })),
                 };
@@ -68,6 +79,7 @@ let GlobalExceptionFilter = GlobalExceptionFilter_1 = class GlobalExceptionFilte
                 title: exception.name,
                 status,
                 detail: typeof detail === 'string' ? detail : JSON.stringify(detail),
+                instance,
                 correlationId,
             };
         }
@@ -78,6 +90,7 @@ let GlobalExceptionFilter = GlobalExceptionFilter_1 = class GlobalExceptionFilte
             title: 'Internal Server Error',
             status: 500,
             detail: this.isProduction ? 'An unexpected error occurred.' : error.message,
+            instance,
             correlationId,
             ...(this.isProduction ? {} : { stack: error.stack }),
         };

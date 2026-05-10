@@ -9,6 +9,7 @@ var ErrorType;
     ErrorType["ValidationError"] = "VALIDATION_ERROR";
     ErrorType["InternalError"] = "INTERNAL_ERROR";
     ErrorType["Unauthorized"] = "UNAUTHORIZED";
+    ErrorType["UnprocessableEntity"] = "UNPROCESSABLE_ENTITY";
 })(ErrorType || (exports.ErrorType = ErrorType = {}));
 class Result {
     isSuccess;
@@ -41,6 +42,9 @@ class Result {
     }
     static unauthorized(message) {
         return Result.failure(ErrorType.Unauthorized, message);
+    }
+    static unprocessableEntity(message) {
+        return Result.failure(ErrorType.UnprocessableEntity, message);
     }
     unwrap() {
         if (!this.isSuccess || this.value === undefined) {

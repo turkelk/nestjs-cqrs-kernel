@@ -4,7 +4,8 @@ export declare enum ErrorType {
     Conflict = "CONFLICT",
     ValidationError = "VALIDATION_ERROR",
     InternalError = "INTERNAL_ERROR",
-    Unauthorized = "UNAUTHORIZED"
+    Unauthorized = "UNAUTHORIZED",
+    UnprocessableEntity = "UNPROCESSABLE_ENTITY"
 }
 export declare class Result<T> {
     readonly isSuccess: boolean;
@@ -19,6 +20,7 @@ export declare class Result<T> {
     static conflict<T>(message: string): Result<T>;
     static validationError<T>(message: string): Result<T>;
     static unauthorized<T>(message: string): Result<T>;
+    static unprocessableEntity<T>(message: string): Result<T>;
     unwrap(): T;
     map<U>(fn: (value: T) => U): Result<U>;
 }

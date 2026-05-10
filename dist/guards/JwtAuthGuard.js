@@ -98,11 +98,13 @@ let JwtAuthGuard = JwtAuthGuard_1 = class JwtAuthGuard {
         try {
             const decoded = await this.verifyToken(token);
             // Extract org from KC Organizations claim (preferred) or legacy org_id attribute
+            // KC Organizations format: { "organization": { "<org-uuid>": { ... } } }
+            // The org UUID is the key, not a nested property
             let organizationId = decoded.org_id;
             if (decoded.organization) {
-                const firstOrg = Object.values(decoded.organization)[0];
-                if (firstOrg?.id)
-                    organizationId = firstOrg.id;
+                const firstOrgId = Object.keys(decoded.organization)[0];
+                if (firstOrgId)
+                    organizationId = firstOrgId;
             }
             request.user = {
                 keycloakId: decoded.sub,
