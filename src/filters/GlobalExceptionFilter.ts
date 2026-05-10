@@ -7,7 +7,6 @@ import {
 } from '@nestjs/common';
 import { ThrottlerException } from '@nestjs/throttler';
 import { Response } from 'express';
-import { Result, ErrorType } from '../result/Result';
 import { correlationStore } from '../middleware/CorrelationStore';
 
 interface ProblemDetails {
@@ -21,18 +20,9 @@ interface ProblemDetails {
   stack?: string;
 }
 
-const ERROR_TYPE_TO_STATUS: Record<string, number> = {
-  [ErrorType.NotFound]: 404,
-  [ErrorType.Forbidden]: 403,
-  [ErrorType.Unauthorized]: 401,
-  [ErrorType.Conflict]: 409,
-  [ErrorType.ValidationError]: 400,
-  [ErrorType.InternalError]: 500,
-};
-
 /**
- * Global exception filter that maps domain Result error types
- * and Node exceptions to RFC 7807 ProblemDetails-style JSON responses.
+ * Global exception filter for framework-level exceptions (guards, pipes, throttler).
+ * Result<T> errors are handled by ResultInterceptor — they never reach this filter.
  */
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
@@ -64,21 +54,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     exception: unknown,
     correlationId?: string,
   ): ProblemDetails {
-    // Handle Result objects passed as exceptions
-    if (exception instanceof Object && 'isSuccess' in exception) {
-      const result = exception as Result<unknown>;
-      if (!result.isSuccess && result.errorType) {
-        const status = ERROR_TYPE_TO_STATUS[result.errorType] ?? 500;
-        return {
-          type: `https://arex.dev/errors/${result.errorType}`,
-          title: result.errorType,
-          status,
-          detail: result.errorMessage,
-          correlationId,
-        };
-      }
-    }
-
     // ThrottlerException → 429
     if (exception instanceof ThrottlerException) {
       return {
@@ -91,7 +66,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       };
     }
 
-    // NestJS HttpException
+    // NestJS HttpException (guards, pipes, etc.)
     if (exception instanceof HttpException) {
       const status = exception.getStatus();
       const exceptionResponse = exception.getResponse();
@@ -100,7 +75,6 @@ export class GlobalExceptionFilter implements ExceptionFilter {
           ? exceptionResponse
           : (exceptionResponse as Record<string, unknown>).message;
 
-      // NestJS ValidationPipe errors (DTO-level)
       if (status === 400 && Array.isArray(detail)) {
         return {
           type: 'https://arex.dev/errors/VALIDATION_ERROR',
@@ -121,7 +95,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       };
     }
 
-    // Unhandled errors
+    // Unhandled errors (middleware crashes, etc.)
     const error = exception instanceof Error ? exception : new Error(String(exception));
     return {
       type: 'https://arex.dev/errors/INTERNAL_ERROR',

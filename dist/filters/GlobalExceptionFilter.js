@@ -10,19 +10,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GlobalExceptionFilter = void 0;
 const common_1 = require("@nestjs/common");
 const throttler_1 = require("@nestjs/throttler");
-const Result_1 = require("../result/Result");
 const CorrelationStore_1 = require("../middleware/CorrelationStore");
-const ERROR_TYPE_TO_STATUS = {
-    [Result_1.ErrorType.NotFound]: 404,
-    [Result_1.ErrorType.Forbidden]: 403,
-    [Result_1.ErrorType.Unauthorized]: 401,
-    [Result_1.ErrorType.Conflict]: 409,
-    [Result_1.ErrorType.ValidationError]: 400,
-    [Result_1.ErrorType.InternalError]: 500,
-};
 /**
- * Global exception filter that maps domain Result error types
- * and Node exceptions to RFC 7807 ProblemDetails-style JSON responses.
+ * Global exception filter for framework-level exceptions (guards, pipes, throttler).
+ * Result<T> errors are handled by ResultInterceptor — they never reach this filter.
  */
 let GlobalExceptionFilter = GlobalExceptionFilter_1 = class GlobalExceptionFilter {
     logger = new common_1.Logger(GlobalExceptionFilter_1.name);
@@ -44,20 +35,6 @@ let GlobalExceptionFilter = GlobalExceptionFilter_1 = class GlobalExceptionFilte
         response.status(problem.status).json(problem);
     }
     toProblemDetails(exception, correlationId) {
-        // Handle Result objects passed as exceptions
-        if (exception instanceof Object && 'isSuccess' in exception) {
-            const result = exception;
-            if (!result.isSuccess && result.errorType) {
-                const status = ERROR_TYPE_TO_STATUS[result.errorType] ?? 500;
-                return {
-                    type: `https://arex.dev/errors/${result.errorType}`,
-                    title: result.errorType,
-                    status,
-                    detail: result.errorMessage,
-                    correlationId,
-                };
-            }
-        }
         // ThrottlerException → 429
         if (exception instanceof throttler_1.ThrottlerException) {
             return {
@@ -69,14 +46,13 @@ let GlobalExceptionFilter = GlobalExceptionFilter_1 = class GlobalExceptionFilte
                 retryAfter: 60,
             };
         }
-        // NestJS HttpException
+        // NestJS HttpException (guards, pipes, etc.)
         if (exception instanceof common_1.HttpException) {
             const status = exception.getStatus();
             const exceptionResponse = exception.getResponse();
             const detail = typeof exceptionResponse === 'string'
                 ? exceptionResponse
                 : exceptionResponse.message;
-            // NestJS ValidationPipe errors (DTO-level)
             if (status === 400 && Array.isArray(detail)) {
                 return {
                     type: 'https://arex.dev/errors/VALIDATION_ERROR',
@@ -95,7 +71,7 @@ let GlobalExceptionFilter = GlobalExceptionFilter_1 = class GlobalExceptionFilte
                 correlationId,
             };
         }
-        // Unhandled errors
+        // Unhandled errors (middleware crashes, etc.)
         const error = exception instanceof Error ? exception : new Error(String(exception));
         return {
             type: 'https://arex.dev/errors/INTERNAL_ERROR',

@@ -11,17 +11,28 @@ exports.ResultInterceptor = void 0;
 const common_1 = require("@nestjs/common");
 const rxjs_1 = require("rxjs");
 const Result_1 = require("../result/Result");
+const CorrelationStore_1 = require("../middleware/CorrelationStore");
+const ERROR_TYPE_TO_STATUS = {
+    [Result_1.ErrorType.NotFound]: 404,
+    [Result_1.ErrorType.Forbidden]: 403,
+    [Result_1.ErrorType.Unauthorized]: 401,
+    [Result_1.ErrorType.Conflict]: 409,
+    [Result_1.ErrorType.ValidationError]: 400,
+    [Result_1.ErrorType.InternalError]: 500,
+};
 let ResultInterceptor = ResultInterceptor_1 = class ResultInterceptor {
     logger = new common_1.Logger(ResultInterceptor_1.name);
-    intercept(_context, next) {
+    intercept(context, next) {
         return next.handle().pipe((0, rxjs_1.map)((data) => {
             if (data instanceof Result_1.Result && !data.isSuccess) {
-                throw data;
+                this.sendResultError(context, data);
+                return undefined;
             }
             return data;
         }), (0, rxjs_1.catchError)((error) => {
             if (error instanceof Result_1.Result) {
-                throw error;
+                this.sendResultError(context, error);
+                return rxjs_1.EMPTY;
             }
             const err = error instanceof Error ? error : new Error(String(error));
             this.logger.error({
@@ -29,8 +40,30 @@ let ResultInterceptor = ResultInterceptor_1 = class ResultInterceptor {
                 error: err.message,
                 stack: err.stack,
             });
-            throw Result_1.Result.failure(Result_1.ErrorType.InternalError, err.message);
+            this.sendResultError(context, Result_1.Result.failure(Result_1.ErrorType.InternalError, err.message));
+            return rxjs_1.EMPTY;
         }));
+    }
+    sendResultError(context, result) {
+        const response = context.switchToHttp().getResponse();
+        const correlationId = CorrelationStore_1.correlationStore.getStore()?.correlationId;
+        const status = ERROR_TYPE_TO_STATUS[result.errorType] ?? 500;
+        if (correlationId) {
+            response.setHeader('X-Correlation-ID', correlationId);
+        }
+        this.logger.warn({
+            msg: `${status} ${result.errorType}`,
+            correlationId,
+            status,
+            detail: result.errorMessage,
+        });
+        response.status(status).json({
+            type: `https://arex.dev/errors/${result.errorType}`,
+            title: result.errorType,
+            status,
+            detail: result.errorMessage,
+            correlationId,
+        });
     }
 };
 exports.ResultInterceptor = ResultInterceptor;
