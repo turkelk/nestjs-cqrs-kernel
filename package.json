@@ -26,14 +26,16 @@
   },
   "peerDependencies": {
     "@nestjs/common": "^11.0.0",
+    "@nestjs/passport": "^11.0.0",
     "@nestjs/swagger": "^11.0.0",
     "@nestjs/terminus": "^11.0.0",
     "@nestjs/throttler": "^6.0.0",
     "helmet": "^8.0.0",
     "ioredis": "^5.0.0",
-    "jsonwebtoken": "^9.0.0",
     "jwks-rsa": "^4.0.0",
     "nestjs-pino": "^4.0.0",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.0",
     "pino": "^10.0.0",
     "pino-http": "^11.0.0",
     "pino-seq": "^3.0.0 || ^4.0.0",
@@ -43,6 +45,9 @@
   },
   "peerDependenciesMeta": {
     "@nestjs/common": {
+      "optional": false
+    },
+    "@nestjs/passport": {
       "optional": false
     },
     "@nestjs/swagger": {
@@ -60,13 +65,16 @@
     "ioredis": {
       "optional": false
     },
-    "jsonwebtoken": {
-      "optional": false
-    },
     "jwks-rsa": {
       "optional": false
     },
     "nestjs-pino": {
+      "optional": false
+    },
+    "passport": {
+      "optional": false
+    },
+    "passport-jwt": {
       "optional": false
     },
     "pino": {
@@ -100,17 +108,19 @@
     "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.6",
     "@types/jest": "^29.5.0",
-    "@types/jsonwebtoken": "^9.0.10",
+    "@types/passport-jwt": "^4.0.1",
     "@types/node": "^22.0.0",
     "@types/uuid": "^10.0.0",
     "cookie-parser": "^1.4.7",
+    "@nestjs/passport": "^11.0.5",
     "eslint": "^9.0.0",
     "express": "^5.2.1",
     "helmet": "^8.1.0",
     "ioredis": "^5.10.1",
     "jest": "^29.7.0",
-    "jsonwebtoken": "^9.0.3",
     "jwks-rsa": "^4.0.1",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1",
     "nestjs-pino": "^4.6.1",
     "pino": "^10.3.1",
     "pino-http": "^11.0.0",

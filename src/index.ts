@@ -20,7 +20,8 @@ export { GlobalExceptionFilter } from './filters/GlobalExceptionFilter';
 export { ResultInterceptor } from './interceptors/ResultInterceptor';
 
 // Guards
-export { JwtAuthGuard, Public, JwtPayload } from './guards/JwtAuthGuard';
+export { JwtAuthGuard, Public } from './guards/JwtAuthGuard';
+export { JwtStrategy, JwtPayload } from './guards/JwtStrategy';
 export { RolesGuard, Roles } from './guards/RolesGuard';
 
 // Subscribers
