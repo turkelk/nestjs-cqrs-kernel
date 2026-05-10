@@ -26,10 +26,10 @@ const PerformanceBehavior_1 = require("./behaviors/PerformanceBehavior");
  * PipelineExecutor wraps CommandBus and QueryBus with separate behavior chains.
  *
  * Command chain (all writes):
- *   Performance → Log → FeatureFlag → Validate → Cache → DistributedLock → Transactional → Handler
+ *   Log → Performance → FeatureFlag → Validate → Workflow → Cache → DistributedLock → Transactional → Handler
  *
  * Query chain (reads only):
- *   Performance → Log → FeatureFlag → Validate → Cache → Handler
+ *   Log → Performance → FeatureFlag → Validate → Cache → Handler
  *
  * Every command is transactional by default (UnitOfWork pattern).
  * Queries skip Transactional and DistributedLock — they are read-only.
@@ -44,10 +44,11 @@ let PipelineExecutor = PipelineExecutor_1 = class PipelineExecutor {
     distributedLockBehavior;
     transactionalBehavior;
     performanceBehavior;
+    workflowBehavior;
     logger = new common_1.Logger(PipelineExecutor_1.name);
     commandBehaviors = [];
     queryBehaviors = [];
-    constructor(commandBus, queryBus, logBehavior, featureFlagBehavior, validationBehavior, cacheBehavior, distributedLockBehavior, transactionalBehavior, performanceBehavior) {
+    constructor(commandBus, queryBus, logBehavior, featureFlagBehavior, validationBehavior, cacheBehavior, distributedLockBehavior, transactionalBehavior, performanceBehavior, workflowBehavior) {
         this.commandBus = commandBus;
         this.queryBus = queryBus;
         this.logBehavior = logBehavior;
@@ -57,43 +58,48 @@ let PipelineExecutor = PipelineExecutor_1 = class PipelineExecutor {
         this.distributedLockBehavior = distributedLockBehavior;
         this.transactionalBehavior = transactionalBehavior;
         this.performanceBehavior = performanceBehavior;
+        this.workflowBehavior = workflowBehavior;
     }
     onModuleInit() {
         const featureFlagStep = this.featureFlagBehavior
             ? [(cmd, next) => this.featureFlagBehavior.execute(cmd, next)]
             : [];
+        const workflowStep = this.workflowBehavior
+            ? [(cmd, next, context) => this.workflowBehavior.execute(cmd, next, context)]
+            : [];
         this.commandBehaviors = [
-            (cmd, next) => this.performanceBehavior.execute(cmd, next),
             (cmd, next) => this.logBehavior.execute(cmd, next),
+            (cmd, next) => this.performanceBehavior.execute(cmd, next),
             ...featureFlagStep,
             (cmd, next) => this.validationBehavior.execute(cmd, next),
+            ...workflowStep,
             (cmd, next) => this.cacheBehavior.execute(cmd, next),
             (cmd, next) => this.distributedLockBehavior.execute(cmd, next),
             (cmd, next) => this.transactionalBehavior.execute(cmd, next),
         ];
         this.queryBehaviors = [
-            (cmd, next) => this.performanceBehavior.execute(cmd, next),
             (cmd, next) => this.logBehavior.execute(cmd, next),
+            (cmd, next) => this.performanceBehavior.execute(cmd, next),
             ...featureFlagStep,
             (cmd, next) => this.validationBehavior.execute(cmd, next),
             (cmd, next) => this.cacheBehavior.execute(cmd, next),
         ];
         this.logger.log(`Pipeline initialized — commands: ${this.commandBehaviors.length} behaviors, queries: ${this.queryBehaviors.length} behaviors`);
     }
-    async executeCommand(command) {
+    async executeCommand(command, context) {
         const handler = () => this.commandBus.execute(command);
-        return this.runPipeline(command, handler, this.commandBehaviors);
+        return this.runPipeline(command, handler, this.commandBehaviors, context);
     }
     async executeQuery(query) {
         const handler = () => this.queryBus.execute(query);
         return this.runPipeline(query, handler, this.queryBehaviors);
     }
-    runPipeline(command, handler, behaviors) {
+    runPipeline(command, handler, behaviors, context) {
         let next = handler;
         for (let i = behaviors.length - 1; i >= 0; i--) {
             const behavior = behaviors[i];
             const currentNext = next;
-            next = () => behavior(command, currentNext);
+            next = () => behavior(command, currentNext, context);
         }
         return next();
     }
@@ -102,11 +108,12 @@ exports.PipelineExecutor = PipelineExecutor;
 exports.PipelineExecutor = PipelineExecutor = PipelineExecutor_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(3, (0, common_1.Optional)()),
+    __param(9, (0, common_1.Optional)()),
     __metadata("design:paramtypes", [cqrs_1.CommandBus,
         cqrs_1.QueryBus,
         LogBehavior_1.LogBehavior, Object, ValidationBehavior_1.ValidationBehavior,
         CacheBehavior_1.CacheBehavior,
         DistributedLockBehavior_1.DistributedLockBehavior,
         TransactionalBehavior_1.TransactionalBehavior,
-        PerformanceBehavior_1.PerformanceBehavior])
+        PerformanceBehavior_1.PerformanceBehavior, Object])
 ], PipelineExecutor);

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OutboxEventStatus = exports.OutboxEvent = exports.DomainEvent = exports.RedisModule = exports.PipelineExecutor = exports.PerformanceBehavior = exports.TransactionalBehavior = exports.DistributedLockBehavior = exports.CacheBehavior = exports.ValidationBehavior = exports.FeatureFlagBehavior = exports.LogBehavior = exports.MetricsController = exports.MetricsService = exports.getTransactionalRepo = exports.TransactionContext = exports.isIsolatedTransaction = exports.IsolatedTransaction = exports.getDistributedLockMetadata = exports.DistributedLock = exports.getCacheMetadata = exports.Cache = exports.validateCommand = exports.getValidatorClass = exports.shouldValidate = exports.Validate = exports.getLogMetadata = exports.Log = exports.getFeatureFlagMetadata = exports.FeatureFlag = exports.REDIS_CLIENT = exports.createPinoConfig = exports.bootstrapService = exports.createCircuitBreaker = exports.TenantSubscriber = exports.Roles = exports.RolesGuard = exports.JwtStrategy = exports.Public = exports.JwtAuthGuard = exports.ResultInterceptor = exports.GlobalExceptionFilter = exports.tenantStore = exports.TenantContextMiddleware = exports.correlationStore = exports.CorrelationIdMiddleware = exports.TenantBaseEntity = exports.BaseEntity = exports.ErrorType = exports.Result = void 0;
-exports.createMockRedisClient = exports.createMockRepository = exports.SharedKernelModule = exports.GracefulShutdownService = exports.UnleashModule = exports.OutboxPublisherService = exports.RedisStreamConsumer = exports.RedisStreamPublisher = void 0;
+exports.PipelineExecutor = exports.WorkflowBehavior = exports.PerformanceBehavior = exports.TransactionalBehavior = exports.DistributedLockBehavior = exports.CacheBehavior = exports.ValidationBehavior = exports.FeatureFlagBehavior = exports.LogBehavior = exports.MetricsController = exports.MetricsService = exports.getTransactionalRepo = exports.TransactionContext = exports.WORKFLOW_ENGINE = exports.getWorkflowMetadata = exports.Workflow = exports.isIsolatedTransaction = exports.IsolatedTransaction = exports.getDistributedLockMetadata = exports.DistributedLock = exports.getCacheMetadata = exports.Cache = exports.validateCommand = exports.getValidatorClass = exports.shouldValidate = exports.Validate = exports.getLogMetadata = exports.Log = exports.getFeatureFlagMetadata = exports.FeatureFlag = exports.REDIS_CLIENT = exports.createPinoConfig = exports.bootstrapService = exports.createCircuitBreaker = exports.TenantSubscriber = exports.Roles = exports.RolesGuard = exports.JwtStrategy = exports.Public = exports.JwtAuthGuard = exports.ResultInterceptor = exports.GlobalExceptionFilter = exports.tenantStore = exports.TenantContextMiddleware = exports.correlationStore = exports.CorrelationIdMiddleware = exports.TenantBaseEntity = exports.BaseEntity = exports.ErrorType = exports.Result = void 0;
+exports.createMockRedisClient = exports.createMockRepository = exports.SharedKernelModule = exports.GracefulShutdownService = exports.UnleashModule = exports.OutboxPublisherService = exports.RedisStreamConsumer = exports.RedisStreamPublisher = exports.OutboxEventStatus = exports.OutboxEvent = exports.DomainEvent = exports.RedisModule = void 0;
 // Result
 var Result_1 = require("./result/Result");
 Object.defineProperty(exports, "Result", { enumerable: true, get: function () { return Result_1.Result; } });
@@ -72,6 +72,12 @@ Object.defineProperty(exports, "getDistributedLockMetadata", { enumerable: true,
 var IsolatedTransaction_decorator_1 = require("./cqrs/decorators/IsolatedTransaction.decorator");
 Object.defineProperty(exports, "IsolatedTransaction", { enumerable: true, get: function () { return IsolatedTransaction_decorator_1.IsolatedTransaction; } });
 Object.defineProperty(exports, "isIsolatedTransaction", { enumerable: true, get: function () { return IsolatedTransaction_decorator_1.isIsolatedTransaction; } });
+var Workflow_decorator_1 = require("./cqrs/decorators/Workflow.decorator");
+Object.defineProperty(exports, "Workflow", { enumerable: true, get: function () { return Workflow_decorator_1.Workflow; } });
+Object.defineProperty(exports, "getWorkflowMetadata", { enumerable: true, get: function () { return Workflow_decorator_1.getWorkflowMetadata; } });
+// Workflow Engine Interface
+var WorkflowEngine_1 = require("./cqrs/interfaces/WorkflowEngine");
+Object.defineProperty(exports, "WORKFLOW_ENGINE", { enumerable: true, get: function () { return WorkflowEngine_1.WORKFLOW_ENGINE; } });
 // Transaction (UnitOfWork)
 var TransactionContext_1 = require("./cqrs/transaction/TransactionContext");
 Object.defineProperty(exports, "TransactionContext", { enumerable: true, get: function () { return TransactionContext_1.TransactionContext; } });
@@ -97,6 +103,8 @@ var TransactionalBehavior_1 = require("./cqrs/behaviors/TransactionalBehavior");
 Object.defineProperty(exports, "TransactionalBehavior", { enumerable: true, get: function () { return TransactionalBehavior_1.TransactionalBehavior; } });
 var PerformanceBehavior_1 = require("./cqrs/behaviors/PerformanceBehavior");
 Object.defineProperty(exports, "PerformanceBehavior", { enumerable: true, get: function () { return PerformanceBehavior_1.PerformanceBehavior; } });
+var WorkflowBehavior_1 = require("./cqrs/behaviors/WorkflowBehavior");
+Object.defineProperty(exports, "WorkflowBehavior", { enumerable: true, get: function () { return WorkflowBehavior_1.WorkflowBehavior; } });
 // CQRS Pipeline
 var PipelineExecutor_1 = require("./cqrs/PipelineExecutor");
 Object.defineProperty(exports, "PipelineExecutor", { enumerable: true, get: function () { return PipelineExecutor_1.PipelineExecutor; } });

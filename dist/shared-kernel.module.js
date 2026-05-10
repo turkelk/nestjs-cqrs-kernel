@@ -18,6 +18,7 @@ const CacheBehavior_1 = require("./cqrs/behaviors/CacheBehavior");
 const DistributedLockBehavior_1 = require("./cqrs/behaviors/DistributedLockBehavior");
 const TransactionalBehavior_1 = require("./cqrs/behaviors/TransactionalBehavior");
 const PerformanceBehavior_1 = require("./cqrs/behaviors/PerformanceBehavior");
+const WorkflowBehavior_1 = require("./cqrs/behaviors/WorkflowBehavior");
 const MetricsService_1 = require("./metrics/MetricsService");
 const MetricsController_1 = require("./metrics/MetricsController");
 const GracefulShutdownService_1 = require("./lifecycle/GracefulShutdownService");
@@ -55,6 +56,7 @@ let SharedKernelModule = SharedKernelModule_1 = class SharedKernelModule {
             DistributedLockBehavior_1.DistributedLockBehavior,
             TransactionalBehavior_1.TransactionalBehavior,
             PerformanceBehavior_1.PerformanceBehavior,
+            WorkflowBehavior_1.WorkflowBehavior,
             MetricsService_1.MetricsService,
             GracefulShutdownService_1.GracefulShutdownService,
             PipelineExecutor_1.PipelineExecutor,
@@ -74,6 +76,7 @@ let SharedKernelModule = SharedKernelModule_1 = class SharedKernelModule {
                 DistributedLockBehavior_1.DistributedLockBehavior,
                 TransactionalBehavior_1.TransactionalBehavior,
                 PerformanceBehavior_1.PerformanceBehavior,
+                WorkflowBehavior_1.WorkflowBehavior,
                 MetricsService_1.MetricsService,
                 GracefulShutdownService_1.GracefulShutdownService,
                 RedisStreamPublisher_1.RedisStreamPublisher,
