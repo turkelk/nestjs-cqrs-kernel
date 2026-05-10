@@ -52,7 +52,7 @@ export class LogBehavior {
       const durationMs = Date.now() - startTime;
       const err = error instanceof Error ? error : new Error(String(error));
       this.logger.error({
-        msg: `${commandName} completed`,
+        msg: `${commandName} failed`,
         ...logContext,
         durationMs,
         result: 'exception',

@@ -6,7 +6,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { ThrottlerException } from '@nestjs/throttler';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { correlationStore } from '../middleware/CorrelationStore';
 
 interface ProblemDetails {
@@ -14,6 +14,7 @@ interface ProblemDetails {
   title: string;
   status: number;
   detail?: string;
+  instance?: string;
   correlationId?: string;
   retryAfter?: number;
   errors?: Array<{ field?: string; message: string }>;
@@ -31,14 +32,21 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
   catch(exception: unknown, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
+    const request = ctx.getRequest<Request>();
     const response = ctx.getResponse<Response>();
     const correlationId = correlationStore.getStore()?.correlationId;
+
+    if (response.headersSent) return;
 
     if (correlationId) {
       response.setHeader('X-Correlation-ID', correlationId);
     }
 
-    const problem = this.toProblemDetails(exception, correlationId);
+    const problem = this.toProblemDetails(exception, correlationId, request.originalUrl);
+
+    if (problem.retryAfter) {
+      response.setHeader('Retry-After', String(problem.retryAfter));
+    }
 
     this.logger.error({
       msg: `${problem.status} ${problem.title}`,
@@ -47,12 +55,16 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       detail: problem.detail,
     });
 
-    response.status(problem.status).json(problem);
+    response
+      .status(problem.status)
+      .setHeader('Content-Type', 'application/problem+json')
+      .json(problem);
   }
 
   private toProblemDetails(
     exception: unknown,
     correlationId?: string,
+    instance?: string,
   ): ProblemDetails {
     // ThrottlerException → 429
     if (exception instanceof ThrottlerException) {
@@ -61,6 +73,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         title: 'Too Many Requests',
         status: 429,
         detail: 'Rate limit exceeded. Please retry later.',
+        instance,
         correlationId,
         retryAfter: 60,
       };
@@ -81,6 +94,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
           title: 'Validation Error',
           status: 400,
           detail: 'One or more validation errors occurred.',
+          instance,
           correlationId,
           errors: (detail as string[]).map((msg) => ({ message: msg })),
         };
@@ -91,6 +105,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         title: exception.name,
         status,
         detail: typeof detail === 'string' ? detail : JSON.stringify(detail),
+        instance,
         correlationId,
       };
     }
@@ -102,6 +117,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       title: 'Internal Server Error',
       status: 500,
       detail: this.isProduction ? 'An unexpected error occurred.' : error.message,
+      instance,
       correlationId,
       ...(this.isProduction ? {} : { stack: error.stack }),
     };

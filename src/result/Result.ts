@@ -5,6 +5,7 @@ export enum ErrorType {
   ValidationError = 'VALIDATION_ERROR',
   InternalError = 'INTERNAL_ERROR',
   Unauthorized = 'UNAUTHORIZED',
+  UnprocessableEntity = 'UNPROCESSABLE_ENTITY',
 }
 
 export class Result<T> {
@@ -41,6 +42,10 @@ export class Result<T> {
 
   static unauthorized<T>(message: string): Result<T> {
     return Result.failure<T>(ErrorType.Unauthorized, message);
+  }
+
+  static unprocessableEntity<T>(message: string): Result<T> {
+    return Result.failure<T>(ErrorType.UnprocessableEntity, message);
   }
 
   unwrap(): T {
