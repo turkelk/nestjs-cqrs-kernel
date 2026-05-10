@@ -1,6 +1,6 @@
 {
   "name": "@turkelk/nestjs-cqrs-kernel",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Shared NestJS CQRS kernel — Result<T>, pipeline behaviors, base entities, multi-tenancy, Redis Streams, observability",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
