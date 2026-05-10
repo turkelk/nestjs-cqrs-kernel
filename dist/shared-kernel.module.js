@@ -44,6 +44,24 @@ let SharedKernelModule = SharedKernelModule_1 = class SharedKernelModule {
         if (options.unleash !== false) {
             imports.push(unleash_module_1.UnleashModule.forRoot(options.unleash));
         }
+        const exports = [
+            cqrs_1.CqrsModule,
+            redis_module_1.RedisModule,
+            RedisStreamPublisher_1.RedisStreamPublisher,
+            LogBehavior_1.LogBehavior,
+            FeatureFlagBehavior_1.FeatureFlagBehavior,
+            ValidationBehavior_1.ValidationBehavior,
+            CacheBehavior_1.CacheBehavior,
+            DistributedLockBehavior_1.DistributedLockBehavior,
+            TransactionalBehavior_1.TransactionalBehavior,
+            PerformanceBehavior_1.PerformanceBehavior,
+            MetricsService_1.MetricsService,
+            GracefulShutdownService_1.GracefulShutdownService,
+            PipelineExecutor_1.PipelineExecutor,
+        ];
+        if (options.unleash !== false) {
+            exports.push(unleash_module_1.UnleashModule);
+        }
         return {
             module: SharedKernelModule_1,
             imports,
@@ -61,22 +79,7 @@ let SharedKernelModule = SharedKernelModule_1 = class SharedKernelModule {
                 RedisStreamPublisher_1.RedisStreamPublisher,
                 PipelineExecutor_1.PipelineExecutor,
             ],
-            exports: [
-                cqrs_1.CqrsModule,
-                redis_module_1.RedisModule,
-                unleash_module_1.UnleashModule,
-                RedisStreamPublisher_1.RedisStreamPublisher,
-                LogBehavior_1.LogBehavior,
-                FeatureFlagBehavior_1.FeatureFlagBehavior,
-                ValidationBehavior_1.ValidationBehavior,
-                CacheBehavior_1.CacheBehavior,
-                DistributedLockBehavior_1.DistributedLockBehavior,
-                TransactionalBehavior_1.TransactionalBehavior,
-                PerformanceBehavior_1.PerformanceBehavior,
-                MetricsService_1.MetricsService,
-                GracefulShutdownService_1.GracefulShutdownService,
-                PipelineExecutor_1.PipelineExecutor,
-            ],
+            exports,
         };
     }
 };

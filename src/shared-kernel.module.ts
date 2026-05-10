@@ -44,6 +44,26 @@ export class SharedKernelModule {
       imports.push(UnleashModule.forRoot(options.unleash));
     }
 
+    const exports: any[] = [
+      CqrsModule,
+      RedisModule,
+      RedisStreamPublisher,
+      LogBehavior,
+      FeatureFlagBehavior,
+      ValidationBehavior,
+      CacheBehavior,
+      DistributedLockBehavior,
+      TransactionalBehavior,
+      PerformanceBehavior,
+      MetricsService,
+      GracefulShutdownService,
+      PipelineExecutor,
+    ];
+
+    if (options.unleash !== false) {
+      exports.push(UnleashModule);
+    }
+
     return {
       module: SharedKernelModule,
       imports,
@@ -61,22 +81,7 @@ export class SharedKernelModule {
         RedisStreamPublisher,
         PipelineExecutor,
       ],
-      exports: [
-        CqrsModule,
-        RedisModule,
-        UnleashModule,
-        RedisStreamPublisher,
-        LogBehavior,
-        FeatureFlagBehavior,
-        ValidationBehavior,
-        CacheBehavior,
-        DistributedLockBehavior,
-        TransactionalBehavior,
-        PerformanceBehavior,
-        MetricsService,
-        GracefulShutdownService,
-        PipelineExecutor,
-      ],
+      exports,
     };
   }
 }
