@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OutboxEvent = exports.DomainEvent = exports.RedisModule = exports.PromptResolutionKey = exports.StackProfile = exports.PipelineExecutor = exports.PerformanceBehavior = exports.TransactionalBehavior = exports.DistributedLockBehavior = exports.CacheBehavior = exports.ValidationBehavior = exports.FeatureFlagBehavior = exports.LogBehavior = exports.MetricsController = exports.MetricsService = exports.getTransactionalRepo = exports.TransactionContext = exports.isIsolatedTransaction = exports.IsolatedTransaction = exports.getDistributedLockMetadata = exports.DistributedLock = exports.getCacheMetadata = exports.Cache = exports.validateCommand = exports.getValidatorClass = exports.shouldValidate = exports.Validate = exports.getLogMetadata = exports.Log = exports.getFeatureFlagMetadata = exports.FeatureFlag = exports.REDIS_CLIENT = exports.createPinoConfig = exports.bootstrapService = exports.createCircuitBreaker = exports.TenantSubscriber = exports.Roles = exports.RolesGuard = exports.Public = exports.JwtAuthGuard = exports.ResultInterceptor = exports.GlobalExceptionFilter = exports.tenantStore = exports.TenantContextMiddleware = exports.correlationStore = exports.CorrelationIdMiddleware = exports.TenantBaseEntity = exports.BaseEntity = exports.ErrorType = exports.Result = void 0;
-exports.TestPromptType = exports.PromptTemplateBuilder = exports.DEFAULT_STAGE_KEYS = exports.TestCostMode = exports.TestDatabaseType = exports.TestTechStack = exports.TestStageStatus = exports.TestStageType = exports.TestBuildStatus = exports.BuildBuilder = exports.createMockRedisClient = exports.createMockRepository = exports.SharedKernelModule = exports.GracefulShutdownService = exports.UnleashModule = exports.OutboxPublisherService = exports.RedisStreamConsumer = exports.RedisStreamPublisher = exports.OutboxEventStatus = void 0;
+exports.RedisStreamPublisher = exports.OutboxEventStatus = exports.OutboxEvent = exports.DomainEvent = exports.RedisModule = exports.PipelineExecutor = exports.PerformanceBehavior = exports.TransactionalBehavior = exports.DistributedLockBehavior = exports.CacheBehavior = exports.ValidationBehavior = exports.FeatureFlagBehavior = exports.LogBehavior = exports.MetricsController = exports.MetricsService = exports.getTransactionalRepo = exports.TransactionContext = exports.isIsolatedTransaction = exports.IsolatedTransaction = exports.getDistributedLockMetadata = exports.DistributedLock = exports.getCacheMetadata = exports.Cache = exports.validateCommand = exports.getValidatorClass = exports.shouldValidate = exports.Validate = exports.getLogMetadata = exports.Log = exports.getFeatureFlagMetadata = exports.FeatureFlag = exports.REDIS_CLIENT = exports.createPinoConfig = exports.bootstrapService = exports.createCircuitBreaker = exports.TenantSubscriber = exports.Roles = exports.RolesGuard = exports.Public = exports.JwtAuthGuard = exports.ResultInterceptor = exports.GlobalExceptionFilter = exports.tenantStore = exports.TenantContextMiddleware = exports.correlationStore = exports.CorrelationIdMiddleware = exports.TenantBaseEntity = exports.BaseEntity = exports.ErrorType = exports.Result = void 0;
+exports.createMockRedisClient = exports.createMockRepository = exports.SharedKernelModule = exports.GracefulShutdownService = exports.UnleashModule = exports.OutboxPublisherService = exports.RedisStreamConsumer = void 0;
 // Result
 var Result_1 = require("./result/Result");
 Object.defineProperty(exports, "Result", { enumerable: true, get: function () { return Result_1.Result; } });
@@ -98,11 +98,6 @@ Object.defineProperty(exports, "PerformanceBehavior", { enumerable: true, get: f
 // CQRS Pipeline
 var PipelineExecutor_1 = require("./cqrs/PipelineExecutor");
 Object.defineProperty(exports, "PipelineExecutor", { enumerable: true, get: function () { return PipelineExecutor_1.PipelineExecutor; } });
-// Value Objects
-var StackProfile_1 = require("./value-objects/StackProfile");
-Object.defineProperty(exports, "StackProfile", { enumerable: true, get: function () { return StackProfile_1.StackProfile; } });
-var PromptResolutionKey_1 = require("./value-objects/PromptResolutionKey");
-Object.defineProperty(exports, "PromptResolutionKey", { enumerable: true, get: function () { return PromptResolutionKey_1.PromptResolutionKey; } });
 // Redis
 var redis_module_1 = require("./redis/redis.module");
 Object.defineProperty(exports, "RedisModule", { enumerable: true, get: function () { return redis_module_1.RedisModule; } });
@@ -131,17 +126,3 @@ Object.defineProperty(exports, "SharedKernelModule", { enumerable: true, get: fu
 var mocks_1 = require("./testing/mocks");
 Object.defineProperty(exports, "createMockRepository", { enumerable: true, get: function () { return mocks_1.createMockRepository; } });
 Object.defineProperty(exports, "createMockRedisClient", { enumerable: true, get: function () { return mocks_1.createMockRedisClient; } });
-// Testing module factory + builders — import from './testing' (requires @nestjs/testing, dev only)
-var BuildBuilder_1 = require("./testing/builders/BuildBuilder");
-Object.defineProperty(exports, "BuildBuilder", { enumerable: true, get: function () { return BuildBuilder_1.BuildBuilder; } });
-var BuildBuilder_2 = require("./testing/builders/BuildBuilder");
-Object.defineProperty(exports, "TestBuildStatus", { enumerable: true, get: function () { return BuildBuilder_2.TestBuildStatus; } });
-Object.defineProperty(exports, "TestStageType", { enumerable: true, get: function () { return BuildBuilder_2.TestStageType; } });
-Object.defineProperty(exports, "TestStageStatus", { enumerable: true, get: function () { return BuildBuilder_2.TestStageStatus; } });
-Object.defineProperty(exports, "TestTechStack", { enumerable: true, get: function () { return BuildBuilder_2.TestTechStack; } });
-Object.defineProperty(exports, "TestDatabaseType", { enumerable: true, get: function () { return BuildBuilder_2.TestDatabaseType; } });
-Object.defineProperty(exports, "TestCostMode", { enumerable: true, get: function () { return BuildBuilder_2.TestCostMode; } });
-Object.defineProperty(exports, "DEFAULT_STAGE_KEYS", { enumerable: true, get: function () { return BuildBuilder_2.DEFAULT_STAGE_KEYS; } });
-var PromptTemplateBuilder_1 = require("./testing/builders/PromptTemplateBuilder");
-Object.defineProperty(exports, "PromptTemplateBuilder", { enumerable: true, get: function () { return PromptTemplateBuilder_1.PromptTemplateBuilder; } });
-Object.defineProperty(exports, "TestPromptType", { enumerable: true, get: function () { return PromptTemplateBuilder_1.TestPromptType; } });

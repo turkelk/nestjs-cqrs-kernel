@@ -42,9 +42,6 @@ export { DistributedLockBehavior } from './cqrs/behaviors/DistributedLockBehavio
 export { TransactionalBehavior } from './cqrs/behaviors/TransactionalBehavior';
 export { PerformanceBehavior } from './cqrs/behaviors/PerformanceBehavior';
 export { PipelineExecutor } from './cqrs/PipelineExecutor';
-export { StackProfile } from './value-objects/StackProfile';
-export type { TechStackType, DatabaseTypeValue } from './value-objects/StackProfile';
-export { PromptResolutionKey } from './value-objects/PromptResolutionKey';
 export { RedisModule } from './redis/redis.module';
 export type { RedisModuleOptions } from './redis/redis.module';
 export { DomainEvent } from './events/DomainEvent';
@@ -59,8 +56,3 @@ export { GracefulShutdownService } from './lifecycle/GracefulShutdownService';
 export { SharedKernelModule } from './shared-kernel.module';
 export type { SharedKernelModuleOptions } from './shared-kernel.module';
 export { createMockRepository, createMockRedisClient } from './testing/mocks';
-export { BuildBuilder } from './testing/builders/BuildBuilder';
-export { TestBuildStatus, TestStageType, TestStageStatus, TestTechStack, TestDatabaseType, TestCostMode, DEFAULT_STAGE_KEYS, } from './testing/builders/BuildBuilder';
-export type { TestBuild, TestBuildStage } from './testing/builders/BuildBuilder';
-export { PromptTemplateBuilder, TestPromptType } from './testing/builders/PromptTemplateBuilder';
-export type { TestPromptTemplate, TestPromptAuditEntry } from './testing/builders/PromptTemplateBuilder';

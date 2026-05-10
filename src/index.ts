@@ -76,11 +76,6 @@ export { PerformanceBehavior } from './cqrs/behaviors/PerformanceBehavior';
 // CQRS Pipeline
 export { PipelineExecutor } from './cqrs/PipelineExecutor';
 
-// Value Objects
-export { StackProfile } from './value-objects/StackProfile';
-export type { TechStackType, DatabaseTypeValue } from './value-objects/StackProfile';
-export { PromptResolutionKey } from './value-objects/PromptResolutionKey';
-
 // Redis
 export { RedisModule } from './redis/redis.module';
 export type { RedisModuleOptions } from './redis/redis.module';
@@ -107,19 +102,4 @@ export type { SharedKernelModuleOptions } from './shared-kernel.module';
 // Testing mock helpers (safe for prod — no @nestjs/testing dependency)
 export { createMockRepository, createMockRedisClient } from './testing/mocks';
 
-// Testing module factory + builders — import from './testing' (requires @nestjs/testing, dev only)
-export { BuildBuilder } from './testing/builders/BuildBuilder';
-export {
-  TestBuildStatus,
-  TestStageType,
-  TestStageStatus,
-  TestTechStack,
-  TestDatabaseType,
-  TestCostMode,
-  DEFAULT_STAGE_KEYS,
-} from './testing/builders/BuildBuilder';
-export type { TestBuild, TestBuildStage } from './testing/builders/BuildBuilder';
-
-export { PromptTemplateBuilder, TestPromptType } from './testing/builders/PromptTemplateBuilder';
-export type { TestPromptTemplate, TestPromptAuditEntry } from './testing/builders/PromptTemplateBuilder';
 
