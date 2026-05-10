@@ -14,7 +14,7 @@
     "url": "https://github.com/turkelk/nestjs-cqrs-kernel.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
+    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "license": "MIT",
