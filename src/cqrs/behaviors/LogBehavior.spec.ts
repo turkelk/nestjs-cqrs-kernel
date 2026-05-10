@@ -26,10 +26,13 @@ describe('LogBehavior', () => {
     expect(result.isSuccess).toBe(false);
   });
 
-  it('should re-throw exceptions', async () => {
+  it('should catch exceptions and return Result.failure', async () => {
     const next = jest.fn().mockRejectedValue(new Error('boom'));
 
-    await expect(behavior.execute({}, next)).rejects.toThrow('boom');
+    const result = await behavior.execute({}, next);
+
+    expect(result.isSuccess).toBe(false);
+    expect(result.errorMessage).toBe('boom');
   });
 
   it('should mask PII fields in payload', async () => {

@@ -9,13 +9,17 @@
     "src",
     "tsconfig.json"
   ],
-  "publishConfig": {
-    "access": "public",
-    "name": "@turkelk/nestjs-cqrs-kernel"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/turkelk/nestjs-cqrs-kernel.git"
   },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "license": "MIT",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "prepare": "npm run build",
     "lint": "eslint 'src/**/*.ts'",
     "test": "jest --passWithNoTests"
   },
