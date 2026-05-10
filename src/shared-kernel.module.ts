@@ -8,6 +8,7 @@ import { CacheBehavior } from './cqrs/behaviors/CacheBehavior';
 import { DistributedLockBehavior } from './cqrs/behaviors/DistributedLockBehavior';
 import { TransactionalBehavior } from './cqrs/behaviors/TransactionalBehavior';
 import { PerformanceBehavior } from './cqrs/behaviors/PerformanceBehavior';
+import { WorkflowBehavior } from './cqrs/behaviors/WorkflowBehavior';
 import { MetricsService } from './metrics/MetricsService';
 import { MetricsController } from './metrics/MetricsController';
 import { GracefulShutdownService } from './lifecycle/GracefulShutdownService';
@@ -55,6 +56,7 @@ export class SharedKernelModule {
       DistributedLockBehavior,
       TransactionalBehavior,
       PerformanceBehavior,
+      WorkflowBehavior,
       MetricsService,
       GracefulShutdownService,
       PipelineExecutor,
@@ -76,6 +78,7 @@ export class SharedKernelModule {
         DistributedLockBehavior,
         TransactionalBehavior,
         PerformanceBehavior,
+        WorkflowBehavior,
         MetricsService,
         GracefulShutdownService,
         RedisStreamPublisher,

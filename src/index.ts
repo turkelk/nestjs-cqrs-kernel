@@ -56,6 +56,12 @@ export type { CacheOptions } from './cqrs/decorators/Cache.decorator';
 export { DistributedLock, getDistributedLockMetadata } from './cqrs/decorators/DistributedLock.decorator';
 export type { DistributedLockOptions } from './cqrs/decorators/DistributedLock.decorator';
 export { IsolatedTransaction, isIsolatedTransaction } from './cqrs/decorators/IsolatedTransaction.decorator';
+export { Workflow, getWorkflowMetadata } from './cqrs/decorators/Workflow.decorator';
+export type { WorkflowOptions } from './cqrs/decorators/Workflow.decorator';
+
+// Workflow Engine Interface
+export { WORKFLOW_ENGINE } from './cqrs/interfaces/WorkflowEngine';
+export type { WorkflowEngine, WorkflowStartResult } from './cqrs/interfaces/WorkflowEngine';
 
 // Transaction (UnitOfWork)
 export { TransactionContext } from './cqrs/transaction/TransactionContext';
@@ -73,6 +79,7 @@ export { CacheBehavior } from './cqrs/behaviors/CacheBehavior';
 export { DistributedLockBehavior } from './cqrs/behaviors/DistributedLockBehavior';
 export { TransactionalBehavior } from './cqrs/behaviors/TransactionalBehavior';
 export { PerformanceBehavior } from './cqrs/behaviors/PerformanceBehavior';
+export { WorkflowBehavior } from './cqrs/behaviors/WorkflowBehavior';
 
 // CQRS Pipeline
 export { PipelineExecutor } from './cqrs/PipelineExecutor';
