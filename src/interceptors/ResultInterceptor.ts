@@ -6,7 +6,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { Observable, map, catchError, EMPTY } from 'rxjs';
+import { Observable, switchMap, catchError, of, EMPTY } from 'rxjs';
 import { Result, ErrorType } from '../result/Result';
 import { correlationStore } from '../middleware/CorrelationStore';
 
@@ -25,12 +25,12 @@ export class ResultInterceptor implements NestInterceptor {
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<unknown> {
     return next.handle().pipe(
-      map((data) => {
+      switchMap((data) => {
         if (data instanceof Result && !data.isSuccess) {
           this.sendResultError(context, data);
-          return undefined;
+          return EMPTY;
         }
-        return data;
+        return of(data);
       }),
       catchError((error) => {
         if (error instanceof Result) {

@@ -23,12 +23,12 @@ const ERROR_TYPE_TO_STATUS = {
 let ResultInterceptor = ResultInterceptor_1 = class ResultInterceptor {
     logger = new common_1.Logger(ResultInterceptor_1.name);
     intercept(context, next) {
-        return next.handle().pipe((0, rxjs_1.map)((data) => {
+        return next.handle().pipe((0, rxjs_1.switchMap)((data) => {
             if (data instanceof Result_1.Result && !data.isSuccess) {
                 this.sendResultError(context, data);
-                return undefined;
+                return rxjs_1.EMPTY;
             }
-            return data;
+            return (0, rxjs_1.of)(data);
         }), (0, rxjs_1.catchError)((error) => {
             if (error instanceof Result_1.Result) {
                 this.sendResultError(context, error);
