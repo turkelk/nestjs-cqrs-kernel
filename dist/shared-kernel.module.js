@@ -88,4 +88,3 @@ exports.SharedKernelModule = SharedKernelModule = SharedKernelModule_1 = __decor
     (0, common_1.Global)(),
     (0, common_1.Module)({})
 ], SharedKernelModule);
-//# sourceMappingURL=shared-kernel.module.js.map

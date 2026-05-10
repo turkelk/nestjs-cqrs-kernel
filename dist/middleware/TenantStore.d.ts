@@ -7,4 +7,3 @@ export interface TenantStoreData {
  * Set by TenantContextMiddleware, read by TenantSubscriber.
  */
 export declare const tenantStore: AsyncLocalStorage<TenantStoreData>;
-//# sourceMappingURL=TenantStore.d.ts.map

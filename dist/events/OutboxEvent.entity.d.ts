@@ -16,4 +16,3 @@ export declare class OutboxEvent {
     createdAt: Date;
     publishedAt: Date | null;
 }
-//# sourceMappingURL=OutboxEvent.entity.d.ts.map

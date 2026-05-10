@@ -7,4 +7,3 @@ export declare function FeatureFlag(flagName: string, options?: FeatureFlagOptio
 export declare function getFeatureFlagMetadata(target: object): {
     flagName: string;
 } & FeatureFlagOptions | undefined;
-//# sourceMappingURL=FeatureFlag.decorator.d.ts.map

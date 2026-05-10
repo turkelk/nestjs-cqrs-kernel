@@ -22,4 +22,3 @@ export declare class GracefulShutdownService implements OnModuleDestroy {
     protected drainWork(): Promise<void>;
     private withTimeout;
 }
-//# sourceMappingURL=GracefulShutdownService.d.ts.map

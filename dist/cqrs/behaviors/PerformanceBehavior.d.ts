@@ -10,4 +10,3 @@ export declare class PerformanceBehavior {
     constructor(metrics?: MetricsService | undefined);
     execute<T>(command: object, next: () => Promise<Result<T>>): Promise<Result<T>>;
 }
-//# sourceMappingURL=PerformanceBehavior.d.ts.map

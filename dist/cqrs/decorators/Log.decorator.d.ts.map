@@ -1,1 +1,0 @@
-{"version":3,"file":"Log.decorator.d.ts","sourceRoot":"","sources":["../../../src/cqrs/decorators/Log.decorator.ts"],"names":[],"mappings":"AAAA,OAAO,kBAAkB,CAAC;AAI1B,MAAM,WAAW,UAAU;IACzB,+DAA+D;IAC/D,UAAU,CAAC,EAAE,OAAO,CAAC;CACtB;AAED;;;GAGG;AACH,wBAAgB,GAAG,CAAC,OAAO,GAAE,UAAe,GAAG,cAAc,CAI5D;AAED,wBAAgB,cAAc,CAAC,MAAM,EAAE,MAAM,GAAG,UAAU,GAAG,SAAS,CAErE"}

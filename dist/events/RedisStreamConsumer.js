@@ -156,4 +156,3 @@ exports.RedisStreamConsumer = RedisStreamConsumer = __decorate([
     __param(0, (0, common_1.Inject)(constants_1.REDIS_CLIENT)),
     __metadata("design:paramtypes", [Function])
 ], RedisStreamConsumer);
-//# sourceMappingURL=RedisStreamConsumer.js.map

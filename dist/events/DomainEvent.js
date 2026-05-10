@@ -25,4 +25,3 @@ class DomainEvent {
     }
 }
 exports.DomainEvent = DomainEvent;
-//# sourceMappingURL=DomainEvent.js.map

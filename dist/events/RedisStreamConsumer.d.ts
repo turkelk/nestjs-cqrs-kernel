@@ -41,4 +41,3 @@ export declare abstract class RedisStreamConsumer implements OnModuleInit, OnMod
     private consumeLoop;
     private readMessages;
 }
-//# sourceMappingURL=RedisStreamConsumer.d.ts.map

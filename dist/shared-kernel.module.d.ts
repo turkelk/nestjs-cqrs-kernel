@@ -19,4 +19,3 @@ export interface SharedKernelModuleOptions {
 export declare class SharedKernelModule {
     static forRoot(options?: SharedKernelModuleOptions): DynamicModule;
 }
-//# sourceMappingURL=shared-kernel.module.d.ts.map

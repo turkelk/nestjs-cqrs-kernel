@@ -54,4 +54,3 @@ exports.PerformanceBehavior = PerformanceBehavior = __decorate([
     __param(0, (0, common_1.Optional)()),
     __metadata("design:paramtypes", [MetricsService_1.MetricsService])
 ], PerformanceBehavior);
-//# sourceMappingURL=PerformanceBehavior.js.map

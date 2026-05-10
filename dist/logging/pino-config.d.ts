@@ -33,4 +33,3 @@ export declare function createPinoConfig(serviceName: string): {
         };
     };
 };
-//# sourceMappingURL=pino-config.d.ts.map

@@ -16,4 +16,3 @@ export declare class TransactionalBehavior {
     constructor(dataSource?: DataSource | undefined);
     execute<T>(command: object, next: () => Promise<Result<T>>): Promise<Result<T>>;
 }
-//# sourceMappingURL=TransactionalBehavior.d.ts.map

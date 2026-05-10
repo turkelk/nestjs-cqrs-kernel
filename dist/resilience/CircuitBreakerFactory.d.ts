@@ -10,4 +10,3 @@ export interface CircuitBreakerOptions {
  *   const result = await policy.execute(() => httpCall());
  */
 export declare function createCircuitBreaker(options?: CircuitBreakerOptions): import("cockatiel").IMergedPolicy<import("cockatiel").IRetryContext & import("cockatiel").IDefaultPolicyContext, never, [import("cockatiel").RetryPolicy, import("cockatiel").CircuitBreakerPolicy]>;
-//# sourceMappingURL=CircuitBreakerFactory.d.ts.map

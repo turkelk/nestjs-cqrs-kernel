@@ -9,4 +9,3 @@ export interface CorrelationStoreData {
  * Set by CorrelationIdMiddleware, read by LogBehavior and error filters.
  */
 export declare const correlationStore: AsyncLocalStorage<CorrelationStoreData>;
-//# sourceMappingURL=CorrelationStore.d.ts.map

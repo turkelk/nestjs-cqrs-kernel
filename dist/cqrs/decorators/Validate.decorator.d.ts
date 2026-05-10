@@ -22,4 +22,3 @@ export declare function Validate(validatorClass: ValidatorClass): ClassDecorator
 export declare function shouldValidate(target: object): boolean;
 export declare function getValidatorClass(target: object): ValidatorClass | undefined;
 export {};
-//# sourceMappingURL=Validate.decorator.d.ts.map

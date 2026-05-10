@@ -7,4 +7,3 @@ export declare class LogBehavior {
     private sanitize;
     private extractBuildId;
 }
-//# sourceMappingURL=LogBehavior.d.ts.map

@@ -85,4 +85,3 @@ exports.OutboxEvent = OutboxEvent = __decorate([
         where: `"status" = 'Pending'`,
     })
 ], OutboxEvent);
-//# sourceMappingURL=OutboxEvent.entity.js.map

@@ -18,4 +18,3 @@ export declare class TenantSubscriber implements EntitySubscriberInterface<Tenan
     private getOrgIdFromStore;
     private setTenantId;
 }
-//# sourceMappingURL=TenantSubscriber.d.ts.map

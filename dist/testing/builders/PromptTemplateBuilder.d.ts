@@ -59,4 +59,3 @@ export declare class PromptTemplateBuilder {
         content: string;
     }>): TestPromptTemplate[];
 }
-//# sourceMappingURL=PromptTemplateBuilder.d.ts.map

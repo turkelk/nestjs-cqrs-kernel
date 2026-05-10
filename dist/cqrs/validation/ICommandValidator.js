@@ -19,4 +19,3 @@ function validateCommand(schema, command) {
         .join('; ');
     return Result_1.Result.validationError(messages);
 }
-//# sourceMappingURL=ICommandValidator.js.map

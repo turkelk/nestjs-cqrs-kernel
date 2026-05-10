@@ -20,4 +20,3 @@ function getTransactionalRepo(repo) {
     const qr = TransactionContext_1.TransactionContext.get();
     return qr ? qr.manager.getRepository(repo.target) : repo;
 }
-//# sourceMappingURL=getTransactionalRepo.js.map

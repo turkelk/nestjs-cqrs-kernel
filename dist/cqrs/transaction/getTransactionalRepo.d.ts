@@ -14,4 +14,3 @@ import type { Repository, ObjectLiteral } from 'typeorm';
  * ```
  */
 export declare function getTransactionalRepo<T extends ObjectLiteral>(repo: Repository<T>): Repository<T>;
-//# sourceMappingURL=getTransactionalRepo.d.ts.map

@@ -5,4 +5,3 @@ export interface TenantContext {
 export declare class TenantContextMiddleware implements NestMiddleware {
     use(req: any, _res: any, next: () => void): void;
 }
-//# sourceMappingURL=TenantContextMiddleware.d.ts.map

@@ -86,4 +86,3 @@ exports.ResultInterceptor = ResultInterceptor;
 exports.ResultInterceptor = ResultInterceptor = ResultInterceptor_1 = __decorate([
     (0, common_1.Injectable)()
 ], ResultInterceptor);
-//# sourceMappingURL=ResultInterceptor.js.map

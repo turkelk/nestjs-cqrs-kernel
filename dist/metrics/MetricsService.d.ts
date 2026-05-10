@@ -11,4 +11,3 @@ export declare class MetricsService implements OnModuleInit {
     getMetrics(): Promise<string>;
     getContentType(): string;
 }
-//# sourceMappingURL=MetricsService.d.ts.map

@@ -21,4 +21,3 @@ export interface TestingModuleOptions {
 export declare class TestingModuleFactory {
     static create(options?: TestingModuleOptions): TestingModuleBuilder;
 }
-//# sourceMappingURL=TestingModuleFactory.d.ts.map

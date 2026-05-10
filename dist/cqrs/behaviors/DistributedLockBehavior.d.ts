@@ -10,4 +10,3 @@ export declare class DistributedLockBehavior {
     private sleep;
     private interpolateKey;
 }
-//# sourceMappingURL=DistributedLockBehavior.d.ts.map

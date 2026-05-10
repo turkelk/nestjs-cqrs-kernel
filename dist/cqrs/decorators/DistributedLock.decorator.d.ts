@@ -13,4 +13,3 @@ export interface DistributedLockOptions {
  */
 export declare function DistributedLock(key: string, options?: Omit<DistributedLockOptions, 'key'>): ClassDecorator;
 export declare function getDistributedLockMetadata(target: object): DistributedLockOptions | undefined;
-//# sourceMappingURL=DistributedLock.decorator.d.ts.map

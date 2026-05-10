@@ -66,4 +66,3 @@ exports.CacheBehavior = CacheBehavior = CacheBehavior_1 = __decorate([
     __param(0, (0, common_1.Inject)(constants_1.REDIS_CLIENT)),
     __metadata("design:paramtypes", [Function])
 ], CacheBehavior);
-//# sourceMappingURL=CacheBehavior.js.map

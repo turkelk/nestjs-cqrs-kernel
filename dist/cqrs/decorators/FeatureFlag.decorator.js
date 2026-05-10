@@ -12,4 +12,3 @@ function FeatureFlag(flagName, options = { fallback: 'throw' }) {
 function getFeatureFlagMetadata(target) {
     return Reflect.getMetadata(FEATURE_FLAG_KEY, target);
 }
-//# sourceMappingURL=FeatureFlag.decorator.js.map

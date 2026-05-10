@@ -6,4 +6,3 @@ export declare class FeatureFlagBehavior {
     constructor(unleash?: Unleash | undefined);
     execute<T>(command: object, next: () => Promise<Result<T>>): Promise<Result<T>>;
 }
-//# sourceMappingURL=FeatureFlagBehavior.d.ts.map

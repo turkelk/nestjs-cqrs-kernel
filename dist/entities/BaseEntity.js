@@ -29,4 +29,3 @@ __decorate([
     (0, typeorm_1.UpdateDateColumn)({ type: 'timestamptz' }),
     __metadata("design:type", Date)
 ], BaseEntity.prototype, "updatedAt", void 0);
-//# sourceMappingURL=BaseEntity.js.map

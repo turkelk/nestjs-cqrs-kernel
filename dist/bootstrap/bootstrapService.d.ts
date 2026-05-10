@@ -6,4 +6,3 @@ export interface BootstrapOptions {
     rawBody?: boolean;
 }
 export declare function bootstrapService(options: BootstrapOptions): Promise<INestApplication>;
-//# sourceMappingURL=bootstrapService.d.ts.map

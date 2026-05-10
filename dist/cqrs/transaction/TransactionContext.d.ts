@@ -16,4 +16,3 @@ export declare class TransactionContext {
     /** Runs `fn` with `queryRunner` as the ambient transaction for all nested calls. */
     static run<T>(queryRunner: QueryRunner, fn: () => Promise<T>): Promise<T>;
 }
-//# sourceMappingURL=TransactionContext.d.ts.map

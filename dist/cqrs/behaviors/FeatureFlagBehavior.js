@@ -56,4 +56,3 @@ exports.FeatureFlagBehavior = FeatureFlagBehavior = FeatureFlagBehavior_1 = __de
     __param(0, (0, common_1.Optional)()),
     __metadata("design:paramtypes", [unleash_client_1.Unleash])
 ], FeatureFlagBehavior);
-//# sourceMappingURL=FeatureFlagBehavior.js.map

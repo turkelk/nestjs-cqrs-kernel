@@ -16,4 +16,3 @@ function Log(options = {}) {
 function getLogMetadata(target) {
     return Reflect.getMetadata(LOG_KEY, target);
 }
-//# sourceMappingURL=Log.decorator.js.map

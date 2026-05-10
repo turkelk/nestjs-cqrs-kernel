@@ -50,4 +50,3 @@ exports.TenantSubscriber = TenantSubscriber;
 exports.TenantSubscriber = TenantSubscriber = __decorate([
     (0, typeorm_1.EventSubscriber)()
 ], TenantSubscriber);
-//# sourceMappingURL=TenantSubscriber.js.map

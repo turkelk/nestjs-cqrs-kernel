@@ -12,4 +12,3 @@ import 'reflect-metadata';
  */
 export declare function IsolatedTransaction(): ClassDecorator;
 export declare function isIsolatedTransaction(target: object): boolean;
-//# sourceMappingURL=IsolatedTransaction.decorator.d.ts.map

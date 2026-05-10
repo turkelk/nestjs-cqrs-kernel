@@ -5,4 +5,3 @@ export declare class MetricsController {
     constructor(metrics: MetricsService);
     getMetrics(res: Response): Promise<void>;
 }
-//# sourceMappingURL=MetricsController.d.ts.map

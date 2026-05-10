@@ -35,4 +35,3 @@ export declare class StackProfile {
     get databaseDriver(): string;
 }
 export {};
-//# sourceMappingURL=StackProfile.d.ts.map

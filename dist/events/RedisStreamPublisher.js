@@ -58,4 +58,3 @@ exports.RedisStreamPublisher = RedisStreamPublisher = RedisStreamPublisher_1 = _
     __param(0, (0, common_1.Inject)(constants_1.REDIS_CLIENT)),
     __metadata("design:paramtypes", [Function])
 ], RedisStreamPublisher);
-//# sourceMappingURL=RedisStreamPublisher.js.map

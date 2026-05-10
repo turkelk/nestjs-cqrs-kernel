@@ -39,4 +39,3 @@ export declare class PipelineExecutor implements OnModuleInit {
     executeQuery<T>(query: object): Promise<Result<T>>;
     private runPipeline;
 }
-//# sourceMappingURL=PipelineExecutor.d.ts.map

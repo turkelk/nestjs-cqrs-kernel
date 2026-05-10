@@ -9,4 +9,3 @@ export interface LogOptions {
  */
 export declare function Log(options?: LogOptions): ClassDecorator;
 export declare function getLogMetadata(target: object): LogOptions | undefined;
-//# sourceMappingURL=Log.decorator.d.ts.map

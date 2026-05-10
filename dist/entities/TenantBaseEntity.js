@@ -20,4 +20,3 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'uuid' }),
     __metadata("design:type", String)
 ], TenantBaseEntity.prototype, "organizationId", void 0);
-//# sourceMappingURL=TenantBaseEntity.js.map

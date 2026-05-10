@@ -7,4 +7,3 @@ export interface UnleashModuleOptions {
 export declare class UnleashModule {
     static forRoot(options?: UnleashModuleOptions): DynamicModule;
 }
-//# sourceMappingURL=unleash.module.d.ts.map

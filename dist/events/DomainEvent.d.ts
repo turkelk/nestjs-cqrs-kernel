@@ -12,4 +12,3 @@ export declare class DomainEvent {
     /** The Redis Stream key this event should be published to */
     get streamKey(): string;
 }
-//# sourceMappingURL=DomainEvent.d.ts.map

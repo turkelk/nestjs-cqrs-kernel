@@ -23,4 +23,3 @@ export declare class JwtAuthGuard implements CanActivate {
     canActivate(context: ExecutionContext): Promise<boolean>;
     private verifyToken;
 }
-//# sourceMappingURL=JwtAuthGuard.d.ts.map

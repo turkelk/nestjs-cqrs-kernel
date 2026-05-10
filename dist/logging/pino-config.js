@@ -77,4 +77,3 @@ function createPinoConfig(serviceName) {
         },
     };
 }
-//# sourceMappingURL=pino-config.js.map

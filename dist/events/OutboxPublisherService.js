@@ -102,4 +102,3 @@ exports.OutboxPublisherService = OutboxPublisherService = OutboxPublisherService
     __metadata("design:paramtypes", [typeorm_1.DataSource,
         RedisStreamPublisher_1.RedisStreamPublisher])
 ], OutboxPublisherService);
-//# sourceMappingURL=OutboxPublisherService.js.map

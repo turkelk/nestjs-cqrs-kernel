@@ -13,4 +13,3 @@ export declare class PromptResolutionKey {
     /** Returns the 5-level fallback keys in priority order */
     toFallbackKeys(): PromptResolutionKey[];
 }
-//# sourceMappingURL=PromptResolutionKey.d.ts.map

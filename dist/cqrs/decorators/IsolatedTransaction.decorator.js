@@ -23,4 +23,3 @@ function IsolatedTransaction() {
 function isIsolatedTransaction(target) {
     return Reflect.getMetadata(ISOLATED_TRANSACTION_KEY, target) === true;
 }
-//# sourceMappingURL=IsolatedTransaction.decorator.js.map

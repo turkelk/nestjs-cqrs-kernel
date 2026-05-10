@@ -46,4 +46,3 @@ interface SafeParseable {
  */
 export declare function validateCommand(schema: SafeParseable, command: unknown): Result<void>;
 export {};
-//# sourceMappingURL=ICommandValidator.d.ts.map

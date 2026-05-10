@@ -9,4 +9,3 @@ export declare class GlobalExceptionFilter implements ExceptionFilter {
     catch(exception: unknown, host: ArgumentsHost): void;
     private toProblemDetails;
 }
-//# sourceMappingURL=GlobalExceptionFilter.d.ts.map

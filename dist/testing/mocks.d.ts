@@ -32,4 +32,3 @@ export declare function createMockRepository<T = any>(): {
  * Creates a mock Redis client with common ioredis methods stubbed.
  */
 export declare function createMockRedisClient(): Record<string, jest.Mock<any, any, any>>;
-//# sourceMappingURL=mocks.d.ts.map

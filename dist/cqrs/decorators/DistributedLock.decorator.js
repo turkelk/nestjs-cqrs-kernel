@@ -21,4 +21,3 @@ function DistributedLock(key, options = {}) {
 function getDistributedLockMetadata(target) {
     return Reflect.getMetadata(LOCK_KEY, target);
 }
-//# sourceMappingURL=DistributedLock.decorator.js.map

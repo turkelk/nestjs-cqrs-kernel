@@ -12,4 +12,3 @@ export declare class OutboxPublisherService implements OnModuleInit, OnModuleDes
     onModuleDestroy(): void;
     private pollAndPublish;
 }
-//# sourceMappingURL=OutboxPublisherService.d.ts.map

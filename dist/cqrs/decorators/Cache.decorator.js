@@ -16,4 +16,3 @@ function Cache(key, options = {}) {
 function getCacheMetadata(target) {
     return Reflect.getMetadata(CACHE_KEY, target);
 }
-//# sourceMappingURL=Cache.decorator.js.map

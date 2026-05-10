@@ -66,4 +66,3 @@ class StackProfile {
     }
 }
 exports.StackProfile = StackProfile;
-//# sourceMappingURL=StackProfile.js.map

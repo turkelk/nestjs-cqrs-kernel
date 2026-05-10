@@ -11,4 +11,3 @@ export interface CacheOptions {
  */
 export declare function Cache(key: string, options?: Omit<CacheOptions, 'key'>): ClassDecorator;
 export declare function getCacheMetadata(target: object): CacheOptions | undefined;
-//# sourceMappingURL=Cache.decorator.d.ts.map

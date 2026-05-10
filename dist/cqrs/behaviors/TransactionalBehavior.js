@@ -75,4 +75,3 @@ exports.TransactionalBehavior = TransactionalBehavior = TransactionalBehavior_1 
     __param(0, (0, common_1.Optional)()),
     __metadata("design:paramtypes", [typeorm_1.DataSource])
 ], TransactionalBehavior);
-//# sourceMappingURL=TransactionalBehavior.js.map

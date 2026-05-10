@@ -7,4 +7,3 @@ export declare class CacheBehavior {
     execute<T>(command: object, next: () => Promise<Result<T>>): Promise<Result<T>>;
     private interpolateKey;
 }
-//# sourceMappingURL=CacheBehavior.d.ts.map

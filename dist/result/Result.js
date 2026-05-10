@@ -60,4 +60,3 @@ class Result {
     }
 }
 exports.Result = Result;
-//# sourceMappingURL=Result.js.map

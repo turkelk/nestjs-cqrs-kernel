@@ -24,4 +24,3 @@ export declare class Result<T> {
     unwrap(): T;
     map<U>(fn: (value: T) => U): Result<U>;
 }
-//# sourceMappingURL=Result.d.ts.map

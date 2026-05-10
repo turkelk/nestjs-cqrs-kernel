@@ -5,4 +5,3 @@ export declare class ResultInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler): Observable<unknown>;
     private sendResultError;
 }
-//# sourceMappingURL=ResultInterceptor.d.ts.map
