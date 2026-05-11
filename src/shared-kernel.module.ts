@@ -1,14 +1,12 @@
-import { DynamicModule, Global, Module } from '@nestjs/common';
+import { DynamicModule, Global, Module, Type } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { PipelineExecutor } from './cqrs/PipelineExecutor';
 import { LogBehavior } from './cqrs/behaviors/LogBehavior';
-import { FeatureFlagBehavior } from './cqrs/behaviors/FeatureFlagBehavior';
 import { ValidationBehavior } from './cqrs/behaviors/ValidationBehavior';
 import { CacheBehavior } from './cqrs/behaviors/CacheBehavior';
 import { DistributedLockBehavior } from './cqrs/behaviors/DistributedLockBehavior';
 import { TransactionalBehavior } from './cqrs/behaviors/TransactionalBehavior';
 import { PerformanceBehavior } from './cqrs/behaviors/PerformanceBehavior';
-import { WorkflowBehavior } from './cqrs/behaviors/WorkflowBehavior';
 import { MetricsService } from './metrics/MetricsService';
 import { MetricsController } from './metrics/MetricsController';
 import { GracefulShutdownService } from './lifecycle/GracefulShutdownService';
@@ -19,6 +17,7 @@ import { UnleashModule, type UnleashModuleOptions } from './unleash/unleash.modu
 export interface SharedKernelModuleOptions {
   redis?: RedisModuleOptions;
   unleash?: UnleashModuleOptions | false;
+  imports?: Array<Type | DynamicModule>;
 }
 
 /**
@@ -36,9 +35,10 @@ export interface SharedKernelModuleOptions {
 @Module({})
 export class SharedKernelModule {
   static forRoot(options: SharedKernelModuleOptions = {}): DynamicModule {
-    const imports = [
+    const imports: Array<Type | DynamicModule> = [
       CqrsModule.forRoot(),
       RedisModule.forRoot(options.redis),
+      ...(options.imports ?? []),
     ];
 
     if (options.unleash !== false) {
@@ -50,13 +50,11 @@ export class SharedKernelModule {
       RedisModule,
       RedisStreamPublisher,
       LogBehavior,
-      FeatureFlagBehavior,
       ValidationBehavior,
       CacheBehavior,
       DistributedLockBehavior,
       TransactionalBehavior,
       PerformanceBehavior,
-      WorkflowBehavior,
       MetricsService,
       GracefulShutdownService,
       PipelineExecutor,
@@ -72,13 +70,11 @@ export class SharedKernelModule {
       controllers: [MetricsController],
       providers: [
         LogBehavior,
-        FeatureFlagBehavior,
         ValidationBehavior,
         CacheBehavior,
         DistributedLockBehavior,
         TransactionalBehavior,
         PerformanceBehavior,
-        WorkflowBehavior,
         MetricsService,
         GracefulShutdownService,
         RedisStreamPublisher,

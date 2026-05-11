@@ -12,13 +12,11 @@ const common_1 = require("@nestjs/common");
 const cqrs_1 = require("@nestjs/cqrs");
 const PipelineExecutor_1 = require("./cqrs/PipelineExecutor");
 const LogBehavior_1 = require("./cqrs/behaviors/LogBehavior");
-const FeatureFlagBehavior_1 = require("./cqrs/behaviors/FeatureFlagBehavior");
 const ValidationBehavior_1 = require("./cqrs/behaviors/ValidationBehavior");
 const CacheBehavior_1 = require("./cqrs/behaviors/CacheBehavior");
 const DistributedLockBehavior_1 = require("./cqrs/behaviors/DistributedLockBehavior");
 const TransactionalBehavior_1 = require("./cqrs/behaviors/TransactionalBehavior");
 const PerformanceBehavior_1 = require("./cqrs/behaviors/PerformanceBehavior");
-const WorkflowBehavior_1 = require("./cqrs/behaviors/WorkflowBehavior");
 const MetricsService_1 = require("./metrics/MetricsService");
 const MetricsController_1 = require("./metrics/MetricsController");
 const GracefulShutdownService_1 = require("./lifecycle/GracefulShutdownService");
@@ -41,6 +39,7 @@ let SharedKernelModule = SharedKernelModule_1 = class SharedKernelModule {
         const imports = [
             cqrs_1.CqrsModule.forRoot(),
             redis_module_1.RedisModule.forRoot(options.redis),
+            ...(options.imports ?? []),
         ];
         if (options.unleash !== false) {
             imports.push(unleash_module_1.UnleashModule.forRoot(options.unleash));
@@ -50,13 +49,11 @@ let SharedKernelModule = SharedKernelModule_1 = class SharedKernelModule {
             redis_module_1.RedisModule,
             RedisStreamPublisher_1.RedisStreamPublisher,
             LogBehavior_1.LogBehavior,
-            FeatureFlagBehavior_1.FeatureFlagBehavior,
             ValidationBehavior_1.ValidationBehavior,
             CacheBehavior_1.CacheBehavior,
             DistributedLockBehavior_1.DistributedLockBehavior,
             TransactionalBehavior_1.TransactionalBehavior,
             PerformanceBehavior_1.PerformanceBehavior,
-            WorkflowBehavior_1.WorkflowBehavior,
             MetricsService_1.MetricsService,
             GracefulShutdownService_1.GracefulShutdownService,
             PipelineExecutor_1.PipelineExecutor,
@@ -70,13 +67,11 @@ let SharedKernelModule = SharedKernelModule_1 = class SharedKernelModule {
             controllers: [MetricsController_1.MetricsController],
             providers: [
                 LogBehavior_1.LogBehavior,
-                FeatureFlagBehavior_1.FeatureFlagBehavior,
                 ValidationBehavior_1.ValidationBehavior,
                 CacheBehavior_1.CacheBehavior,
                 DistributedLockBehavior_1.DistributedLockBehavior,
                 TransactionalBehavior_1.TransactionalBehavior,
                 PerformanceBehavior_1.PerformanceBehavior,
-                WorkflowBehavior_1.WorkflowBehavior,
                 MetricsService_1.MetricsService,
                 GracefulShutdownService_1.GracefulShutdownService,
                 RedisStreamPublisher_1.RedisStreamPublisher,

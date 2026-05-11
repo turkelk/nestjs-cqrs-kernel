@@ -1,9 +1,10 @@
-import { DynamicModule } from '@nestjs/common';
+import { DynamicModule, Type } from '@nestjs/common';
 import { type RedisModuleOptions } from './redis/redis.module';
 import { type UnleashModuleOptions } from './unleash/unleash.module';
 export interface SharedKernelModuleOptions {
     redis?: RedisModuleOptions;
     unleash?: UnleashModuleOptions | false;
+    imports?: Array<Type | DynamicModule>;
 }
 /**
  * SharedKernelModule bundles all cross-cutting CQRS pipeline behaviors,

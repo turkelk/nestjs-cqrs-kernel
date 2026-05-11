@@ -17,11 +17,13 @@ exports.PipelineExecutor = void 0;
 const common_1 = require("@nestjs/common");
 const cqrs_1 = require("@nestjs/cqrs");
 const LogBehavior_1 = require("./behaviors/LogBehavior");
+const FeatureFlagBehavior_1 = require("./behaviors/FeatureFlagBehavior");
 const ValidationBehavior_1 = require("./behaviors/ValidationBehavior");
 const CacheBehavior_1 = require("./behaviors/CacheBehavior");
 const DistributedLockBehavior_1 = require("./behaviors/DistributedLockBehavior");
 const TransactionalBehavior_1 = require("./behaviors/TransactionalBehavior");
 const PerformanceBehavior_1 = require("./behaviors/PerformanceBehavior");
+const WorkflowBehavior_1 = require("./behaviors/WorkflowBehavior");
 /**
  * PipelineExecutor wraps CommandBus and QueryBus with separate behavior chains.
  *
@@ -108,7 +110,9 @@ exports.PipelineExecutor = PipelineExecutor;
 exports.PipelineExecutor = PipelineExecutor = PipelineExecutor_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(3, (0, common_1.Optional)()),
+    __param(3, (0, common_1.Inject)(FeatureFlagBehavior_1.FeatureFlagBehavior)),
     __param(9, (0, common_1.Optional)()),
+    __param(9, (0, common_1.Inject)(WorkflowBehavior_1.WorkflowBehavior)),
     __metadata("design:paramtypes", [cqrs_1.CommandBus,
         cqrs_1.QueryBus,
         LogBehavior_1.LogBehavior, Object, ValidationBehavior_1.ValidationBehavior,
