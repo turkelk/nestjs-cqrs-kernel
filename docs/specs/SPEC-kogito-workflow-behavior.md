@@ -8,7 +8,7 @@ The kernel currently executes all command handlers synchronously within the pipe
 
 Split across **two packages**:
 
-### Package 1: `@turkelk/nestjs-cqrs-kernel` (this repo)
+### Package 1: `@turkelk/quanticjs` (this repo)
 
 Adds minimal workflow infrastructure to the pipeline:
 - `@Workflow()` decorator (metadata only)
@@ -45,7 +45,7 @@ Later, when Kogito calls back:
 
 ## Acceptance Criteria
 
-### Kernel (`@turkelk/nestjs-cqrs-kernel`)
+### Kernel (`@turkelk/quanticjs`)
 
 - [ ] `@Workflow('process-id')` decorator stores process definition ID in metadata
 - [ ] `WorkflowEngine` interface defines: `startProcess`, `signalProcess`, `abortProcess`
@@ -231,7 +231,7 @@ nestjs-cqrs-workflow/
 ```json
 {
   "peerDependencies": {
-    "@turkelk/nestjs-cqrs-kernel": "^x.x.x",
+    "@turkelk/quanticjs": "^x.x.x",
     "@nestjs/common": "^10.0.0",
     "@nestjs/typeorm": "^10.0.0",
     "typeorm": "^0.3.0"
@@ -429,12 +429,12 @@ Published via `RedisStreamPublisher` (from kernel):
 ### Usage in Consuming App
 
 ```typescript
-import { SharedKernelModule } from '@turkelk/nestjs-cqrs-kernel';
+import { QuanticModule } from '@turkelk/quanticjs';
 import { WorkflowModule } from '@turkelk/nestjs-cqrs-workflow';
 
 @Module({
   imports: [
-    SharedKernelModule.forRoot({ redis: { url: process.env.REDIS_URL } }),
+    QuanticModule.forRoot({ redis: { url: process.env.REDIS_URL } }),
     WorkflowModule.forRoot({
       url: process.env.KOGITO_URL,
       fallback: 'throw',
@@ -444,7 +444,7 @@ import { WorkflowModule } from '@turkelk/nestjs-cqrs-workflow';
 export class AppModule {}
 
 // Command definition
-import { Workflow } from '@turkelk/nestjs-cqrs-kernel';
+import { Workflow } from '@turkelk/quanticjs';
 
 @Workflow('user-onboarding')
 @Validate(OnboardUserValidator)

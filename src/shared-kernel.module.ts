@@ -14,27 +14,18 @@ import { RedisStreamPublisher } from './events/RedisStreamPublisher';
 import { RedisModule, type RedisModuleOptions } from './redis/redis.module';
 import { UnleashModule, type UnleashModuleOptions } from './unleash/unleash.module';
 
-export interface SharedKernelModuleOptions {
+export type SharedKernelModuleOptions = QuanticModuleOptions;
+
+export interface QuanticModuleOptions {
   redis?: RedisModuleOptions;
   unleash?: UnleashModuleOptions | false;
   imports?: Array<Type | DynamicModule>;
 }
 
-/**
- * SharedKernelModule bundles all cross-cutting CQRS pipeline behaviors,
- * Redis, Unleash, and the PipelineExecutor into a single importable module.
- *
- * All 4 microservices should import this module to get the full behavior chains:
- *   Commands: Log → FeatureFlag → Validate → Cache → DistributedLock → Transactional → Handler
- *   Queries:  Log → FeatureFlag → Validate → Cache → Handler
- *
- * Every command is transactional by default (UnitOfWork pattern).
- * Use @IsolatedTransaction() to opt out of ambient transaction joining.
- */
 @Global()
 @Module({})
-export class SharedKernelModule {
-  static forRoot(options: SharedKernelModuleOptions = {}): DynamicModule {
+export class QuanticModule {
+  static forRoot(options: QuanticModuleOptions = {}): DynamicModule {
     const imports: Array<Type | DynamicModule> = [
       CqrsModule.forRoot(),
       RedisModule.forRoot(options.redis),
@@ -65,7 +56,7 @@ export class SharedKernelModule {
     }
 
     return {
-      module: SharedKernelModule,
+      module: QuanticModule,
       imports,
       controllers: [MetricsController],
       providers: [
@@ -84,3 +75,6 @@ export class SharedKernelModule {
     };
   }
 }
+
+/** @deprecated Use QuanticModule instead */
+export const SharedKernelModule = QuanticModule;

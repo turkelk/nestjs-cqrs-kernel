@@ -103,9 +103,9 @@ export type { UnleashModuleOptions } from './unleash/unleash.module';
 // Lifecycle
 export { GracefulShutdownService } from './lifecycle/GracefulShutdownService';
 
-// SharedKernelModule
-export { SharedKernelModule } from './shared-kernel.module';
-export type { SharedKernelModuleOptions } from './shared-kernel.module';
+// QuanticModule
+export { QuanticModule, SharedKernelModule } from './shared-kernel.module';
+export type { QuanticModuleOptions, SharedKernelModuleOptions } from './shared-kernel.module';
 
 // Testing mock helpers (safe for prod — no @nestjs/testing dependency)
 export { createMockRepository, createMockRedisClient } from './testing/mocks';
